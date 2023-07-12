@@ -1,5 +1,7 @@
 # Simple Shell
-
+## Authors:
+  * Michael Kiruti Mwaura
+  * Wilson Lusitu Ntonongo
 ## List of allowed functions and system calls
 
 - access (man 2 access)

@@ -7,7 +7,7 @@
 
 #define MAX_COMMAND_LENGTH 100
 
-void main
+int main()
 {
 	char command[MAX_COMMAND_LENGTH];
 
@@ -25,6 +25,10 @@ void main
 		if (strlen(command) == 0)
 		{
 			continue;
+		}
+		if (strcmp(command, "exit") == 0)
+		{
+			break;
 		}
 
 		pid_t pid = fork();
@@ -45,9 +49,6 @@ void main
 			waitpid(pid, NULL, 0);
 		}
 	}
-}
 
-int main
-{
 	return (0);
 }

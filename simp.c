@@ -7,12 +7,13 @@
 
 #define MAX_COMMAND_LENGTH 100
 
-void shell()
+void main
 {
 	char command[MAX_COMMAND_LENGTH];
+
 	while (1)
 	{
-		write(STDOUT_FILENO, "$ ", 2); 
+		write(STDOUT_FILENO, "$ ", 2);
 
 		if (fgets(command, sizeof(command), stdin) == NULL)
 		{
@@ -27,6 +28,7 @@ void shell()
 		}
 
 		pid_t pid = fork();
+
 		if (pid == 0)
 		{
 			execlp(command, command, NULL);
@@ -45,8 +47,7 @@ void shell()
 	}
 }
 
-int main()
+int main
 {
-	shell();
-	return 0;
+	return (0);
 }

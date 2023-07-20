@@ -26,10 +26,6 @@ int main()
 		{
 			continue;
 		}
-		if (strcmp(command, "exit") == 0)
-		{
-			break;
-		}
 
 		pid_t pid = fork();
 

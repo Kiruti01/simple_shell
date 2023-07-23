@@ -1,7 +1,12 @@
 #include "shell.h"
 
-int main()
+/**
+ * main - runs the shell
+ * Return: 0 on success
+ */
+
+int main(void)
 {
-    run_shell();
-    return 0;
+	run_shell();
+	return (0);
 }

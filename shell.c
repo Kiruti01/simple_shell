@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <sys/types.h>
 
 #define MAX_COMMAND_LENGTH 100
 
@@ -35,72 +36,20 @@ void execute_command(char *command, char *args[])
     }
     else if (pid == 0)
     {
-        /*Child process*/
-        /* check if cmd is '/bin/ls'*/
-        if (strcmp(command, "/bin/ls") == 0)
-        {
-            execve(command, args, NULL);
-        }
-        else
-        {
-            char error_msg[100];
-            snprintf(error_msg, sizeof(error_msg), "Command not found: %s\n", command);
-            write(STDERR_FILENO, error_msg, strlen(error_msg));
-            _exit(EXIT_FAILURE);
-        }
+	    /*Child process*/
+	    /* Child process */
+	    char path[] = "/bin/";
+
+	    strcat(path, command);
+
+	    execve(path, args, NULL);
+	    perror("Command execution failed");
+	    exit(EXIT_FAILURE);
     }
     else
     {
-        /* Parent process*/
-        int status;
-
-        wait(&status);
+	    /* Parent process */
+	    int status;
+	    wait(&status);
     }
-}
-
-/**
- * main - The main function of the simple shell.
- * It reads user input,
- * executes the entered commands,
- * and displays the prompt again.
- * The shell continues running
- * until the user presses Ctrl+D to exit.
- *
- * Return: Always 0
- */
-
-int main(void)
-{
-    char command[MAX_COMMAND_LENGTH];
-
-    while (1)
-    {
-        display_prompt();
-
-        if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
-        {
-            /* Handle the end of file condition (Ctrl+D)*/
-            write(STDOUT_FILENO, "\n", 1);
-            break;
-        }
-
-        /* Remove the trailing newline character from the input*/
-        command[strcspn(command, "\n")] = '\0';
-
-        /*split into arguments*/
-        char *args[MAX_COMMAND_LENGTH];
-        char *token;
-        int i = 0;
-        token = strtok(command, " ");
-        while (token != NULL)
-        {
-            args[i++] = token;
-            token = strtok(NULL, " ");
-        }
-        args[i] = NULL;
-
-        execute_command(args[0], args);
-    }
-
-    return (0);
-}
+}        

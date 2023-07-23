@@ -52,4 +52,8 @@ void execute_command(char *command, char *args[])
 	    int status;
 	    wait(&status);
     }
+<<<<<<< HEAD
 }        
+=======
+}
+>>>>>>> 2ea130715e0dd0219d9a0a61faa251f7f1a76754

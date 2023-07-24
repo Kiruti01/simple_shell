@@ -4,9 +4,9 @@
 #include "shell.h"
 #include "main.h"
 /**
- * _strcpy - copies str to anther mem address
- * @src: pointer to source str
- * @dest: pointer to test addrss
+ * _strcpy - copies a string to anther memory adress
+ * @src: pointer to the source string
+ * @dest: pointer to the dest address
  *
  * Return: pointer to the dest
  */
@@ -26,12 +26,12 @@ char *_strcpy(char *dest, const char *src)
 }
 
 /**
- * _strcmp - compares strings
- * @s1: str 1
- * @s2: str 2
+ * _strcmp - compares two strings
+ * @s1: string 1
+ * @s2: string 2
  *
- * Return: int lss than, equal to, or grter than 0 if s1 is, respectively
- * less than, equal to, or grter than s2
+ * Return: int less than, equal to, or greater than 0 if s1 is, respectively
+ * less than, equal to, or greater than s2
  */
 int _strcmp(char *s1, char *s2)
 {
@@ -49,13 +49,13 @@ int _strcmp(char *s1, char *s2)
 }
 
 /**
- * _strcmp_n - compares n bytes of strings
- * @s1: str 1
- * @s2: str 2
- * @n: num of bytes to comp
+ * _strcmp_n - compares n bytes of two strings
+ * @s1: string 1
+ * @s2: string 2
+ * @n: number of bytes to comp
  *
- * Return: int less than, equal to, or grter than 0 if s1 is, respectively
- * less than, equal to, or grter than s2
+ * Return: int less than, equal to, or greater than 0 if s1 is, respectively
+ * less than, equal to, or greater than s2
  */
 int _strcmp_n(char *s1, char *s2, int n)
 {
@@ -75,8 +75,8 @@ int _strcmp_n(char *s1, char *s2, int n)
 
 /**
  * _atoi - turn a str into an int
- * @s: str to evaluate
- * Return: n the value of the 1st number in the st0ring
+ * @s: string to eval
+ * Return: n the value of the first number in the st0ring
  */
 int _atoi(char *s)
 {

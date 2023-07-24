@@ -6,10 +6,10 @@
 #define READ_SIZE 1024
 
 /**
- * rlLine - realloc line buffer
- * @line: to be buffed
- * @oldSize: somthing borrowed
- * @newSize: somthing blue
+ * rlLine - realloc the line buffer
+ * @line: to be buffered
+ * @oldSize: something borrowed
+ * @newSize: something blue
  *
  * Return: new allocated buffer
  */
@@ -29,10 +29,10 @@ char *rlLine(char **line, unsigned int oldSize, unsigned int newSize)
 	return (newLine);
 }
 /**
- * _getline - fetchs line of chars from stdin
+ * _getline - fetches a line of chars from stdin
  * @params: parameters
  *
- * Return: numb of chars read
+ * Return: number of char read
  */
 int _getline(param_t *params)
 {

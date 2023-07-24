@@ -3,10 +3,10 @@
 #include "shell.h"
 #include <stdio.h>
 /**
- * process_string - process nxt cmd into string toks
- * @params: params
+ * process_string - process the next command into string tokens
+ * @params: parameters
  *
- * Return: num of tokens
+ * Return: number of tokens
  */
 int process_string(param_t *params)
 {

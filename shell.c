@@ -39,19 +39,13 @@ void execute_command(char *command, char *args[])
         else if (pid == 0)
         {
             /*Child process*/
-            /* check if cmd is '/bin/ls'*/
-            if (strcmp(command, "/bin/ls") == 0)
-            {
-                execve(command, args, NULL);
-            }
-            else
-            {
-                char error_msg[100];
-                snprintf(error_msg, sizeof(error_msg), "Command not found: %s\n", command);
-                write(STDERR_FILENO, error_msg, strlen(error_msg));
-                _exit(EXIT_FAILURE);
-            }
-        }
+            execve(command, args, NULL);
+
+	    char error_msg[100];
+	    snprintf(error_msg, sizeof(error_msg), "Command not found: %s\n", command);
+	    write(STDERR_FILENO, error_msg, strlen(error_msg));
+	    _exit(EXIT_FAILURE);
+	}
         else
         {
             /* Parent process*/
@@ -60,3 +54,4 @@ void execute_command(char *command, char *args[])
             wait(&status);
         }
     }
+}

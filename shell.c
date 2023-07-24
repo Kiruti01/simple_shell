@@ -8,10 +8,9 @@
 param_t *init_param(char **argv, char **env);
 /**
  * main - entry point for simple shell
- * @argc: argument count
- * @argv: Null terminated argument list
- * @env: Null terminated environment variables list
- *
+ * @argc: arg count
+ * @argv: Null terminated arglist
+ * @env: Null terminated env vars list
  * Return: 0 on success
  */
 int main(int __attribute__((unused)) argc, char **argv, char **env)
@@ -70,9 +69,9 @@ int main(int __attribute__((unused)) argc, char **argv, char **env)
 	}
 }
 /**
- * init_param - initialize params
- * @argv: command line argument
- * @env: environment variables
+ * init_param - start params
+ * @argv: cmd line arg
+ * @env: env var
  * Return: param on success
  */
 param_t *init_param(char **argv, char **env)

@@ -47,6 +47,8 @@ int process_string(param_t *);
 
 char *_strdup(char *);
 
+char *const *list_to_char_array(list_t *list);
+
 char *_strcpy(char *dest, const char *src);
 
 int _getline(param_t *);

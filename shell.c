@@ -15,8 +15,10 @@ param_t *init_param(char **argv, char **env);
  */
 int main(void)
 {
+	int status;
 	param_t *params = NULL;
 	int cond = -2;
+	unsigned int i;
 	char *state = NULL;
 	size_t size = BUFFER_SIZE;
 
@@ -28,24 +30,26 @@ int main(void)
 	{
 		if (cond == -1)
 		{
+			status = params->status;
 			_printf("Shell($) \n");
 			free_params(params);
 			return (status);
 		}
-		for (unsigned int i = 0; i < BUFFER_SIZE; i++)
+		for (i = 0; i < BUFFER_SIZE; i++)
 			(params->buffer)[i] = 0;
+		params->tokCount = 0;
 
 		if (isatty(STDIN_FILENO))
 			_printf("Shell($): ");
 		/*cond = _getline(params);*/
 		cond = getline(&params->buffer, &size, stdin);
-		if (cond == -1)
+		params->lineCount++;
+		if (cond == -1 && _strlen(params->buffer) == 0)
 		{
-			_printf("\n");
+			status = params->status;
 			free_params(params);
-			return (0);
+			return (status);
 		}
-		params->LineCount++;
 		state = NULL;
 		params->nextCommand = _strtok(params->buffer, "\t\n", &state);
 		while (params->nextCommand)
@@ -54,18 +58,17 @@ int main(void)
 			if (params->tokCount == 0)
 				break;
 			run_command(params);
-			for (unsigned int i = 0; i < params->argsCap; i++)
+			for (i = 0; i < params->argsCap; i++)
 			{
 				free(params->args[i]);
 				params->args[i] = NULL;
 			}
 			params->tokCount = 0;
 			free(params->nextCommand);
-			params->nextCommand = _strtok(NULL, "\t\n",
+			params->nextCommand = _strtok(params->buffer, "\t\n",
 						      &state);
 		}
 	}
-	return (0);
 }
 /**
  * init_param - start params

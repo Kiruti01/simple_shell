@@ -1,22 +1,19 @@
 #define _GNU_SOURCE
-#include "shell.h"
-#include "builtins.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
-#include <sys/wait.h>
-#include "path_handler.h"
 #include <signal.h>
-#include "main.h"
+#include "shell.h"
+#include "main.h" /* for _printf */
 #define BUFFER_SIZE 4096
 param_t *init_param(char **argv, char **env);
-
-/*static void execute_builtin_command(char *command, char **envp);*/
-
-/*static void execute_path_command(char *command, char **envp);*/
-
-
+/**
+ * main - entry point for simple shell
+ * @argc: argument count
+ * @argv: Null terminated argument list
+ * @env: Null terminated environment variables list
+ *
+ * Return: 0 on success
+ */
 int main(int __attribute__((unused)) argc, char **argv, char **env)
 {
 	param_t *params = NULL;
@@ -68,18 +65,16 @@ int main(int __attribute__((unused)) argc, char **argv, char **env)
 			params->tokCount = 0;
 			free(params->nextCommand);
 			params->nextCommand = _strtok(params->buffer, ";\n",
-					&state);
+						      &state);
 		}
 	}
 }
-
-
 /**
- * execute_command - Excts gvn cmd using fork and exec functions.
- * @command: The command to execute
- * @envp: pointr to arr for env vats.
+ * init_param - initialize params
+ * @argv: command line argument
+ * @env: environment variables
+ * Return: param on success
  */
-
 param_t *init_param(char **argv, char **env)
 {
 	unsigned int i;
@@ -117,7 +112,7 @@ param_t *init_param(char **argv, char **env)
 		eqs = _strchr(env[i], '=');
 		*eqs = '\0';
 		params->env_head = add_node(&(params->env_head),
-				env[i], eqs + 1);
+					    env[i], eqs + 1);
 		if (!(params->env_head))
 		{
 			free(params->buffer);
@@ -129,146 +124,4 @@ param_t *init_param(char **argv, char **env)
 	}
 	params->alias_head = NULL;
 	return (params);
-}
-
-
-/**
-*check if cmd is 'env
-	if (strcmp(command, "env") == 0)
-	{
-		execute_env(envp); / Call the execute_env function from builtins.c*/
-		return;
-	}
-
-	/* Check if the command is "/bin/ls"
-	if (strcmp(command, "/bin/ls") == 0)
-	{
-		/* Fork a new process to execute the command
-		pid_t pid = fork();
-
-		if (pid == -1)
-		{
-			/* Forking error
-			perror("fork");
-		}
-		else if (pid == 0)
-		{
-			/* Child process: execute the command
-			execute_full_path(command);
-
-			/* Exit the child process after execution 
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			/* Parent process: wait for the child to complete 
-			int status;
-
-			waitpid(pid, &status, 0);
-		}
-	}
-	else
-	{
-		execute_path_command(command, envp);
-	}
-}
-
-/**
- * execute_builtin_command - Execute built-in commands.
- * @command: Command to execute.
- * @envp: Pointer to an array for environment variables.
- *
-
-static void execute_builtin_command(char *command, char **envp)
-{
-	if (strcmp(command, "env") == 0)
-	{
-		execute_env(envp);
-	}
-}
-
-/**
- * execute_path_command - Execute commands from PATH.
- * @command: Command to execute.
- * @envp: Pointer to an array for environment variables.
- /
-static void execute_path_command(char *command, char **envp)
-{
-	/* Output an error message for unsupported commands 
-	char *full_path = find_command_in_path(command);
-
-	if (full_path != NULL)
-	{
-		/* Fork a new process to execute the command from PATH
-		pid_t pid = fork();
-
-		if (pid == -1)
-		{
-			/*Forking error
-			perror("fork");
-		}
-		else if (pid == 0)
-		{
-			/* Child process: execute the command from PATH
-			execute_full_path(full_path);
-			/* Exit the child process after execution
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			/* Parent process: wait for the child to complete
-			int status;
-
-			waitpid(pid, &status, 0);
-		}
-		free(full_path);
-	}
-	else
-	{
-		/*Output an error message for unsupported commands
-		char error_message[] = "Command not found.\n";
-
-		write(STDOUT_FILENO, error_message, strlen(error_message));
-	}
-}
-
-
-/**
- * execute_full_path - Executes the givn cmd wen full path provided.
- * It directly executes the command using execlp.
- * @command: The command to execute.
- *
-
-void execute_full_path(char *command)
-{
-	if (execlp(command, command, (char *)NULL) == -1)
-	{
-		/* Command not found or execution error *
-		char error_message[] = "Command not found: No such file or directory \n";
-
-		write(STDOUT_FILENO, error_message, strlen(error_message));
-		exit(EXIT_FAILURE);
-	}
-}
-
-/**
- * execute_with_path - Exctes givn cmd wen full path not provided.
- * It prepends "/bin/" to cmd n tries to excte using execlp.
- * @command: The command to execute.
- *
-
-void execute_with_path(char *command)
-{
-	char bin_command[100];
-
-	snprintf(bin_command, sizeof(bin_command), "/bin/%s", command);
-
-	if (execlp(bin_command, command, (char *)NULL) == -1)
-	{
-		/* Command not found or execution error *
-		char error_message[] = "Command not found: No such file or directory\n";
-
-		write(STDOUT_FILENO, error_message, strlen(error_message));
-		exit(EXIT_FAILURE);
-	}
 }

@@ -1,9 +1,23 @@
-#ifndef SHELL_H
-#define SHELL_H
+#ifndef MY_SHELL_H
+#define MY_SHELL_H
 #define _GNU_SOURCE
 #include <stdio.h>
 #include "lists.h"
-
+/**
+ * struct param_s - structure used to hold all shell variables needed
+ * @argv: command line argument from main function
+ * @buffer: input buffer
+ * @args: array of arguments
+ * @nextCommand: the next command to process
+ * @argsCap: num of arguments the args array can hold
+ * @lineCount: total line of input
+ * @tokCount: num of tokens in a line input
+ * @status: run command return status
+ * @env_head: singly linked list of environment vars
+ * @alias_head: singly linked list of aliases
+ * Description: This structures hold all variables that passed into
+ * other functions.
+ */
 typedef struct param_s
 {
 	char **argv;
@@ -84,11 +98,4 @@ void free_params(param_t *params);
 void write_error(param_t *params, char *msg);
 
 void _clear(param_t *params);
-#endif
-
-/**
-void execute_command(char *command, char **envp);
-void execute_full_path(char *command);
-void execute_with_path(char *command);
-*/
 #endif

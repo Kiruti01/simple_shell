@@ -3,7 +3,6 @@
 #include <stdlib.h>
 /**
  * free_params - Frees the memory allocated for the param_t structure.
- * 
  * @params: pointer to the param_t structure to free
  *
  * This function frees the dynamically allocated memory used by the param_t

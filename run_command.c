@@ -5,41 +5,41 @@
 #include "shell.h"
 #include "lists.h"
 #include "main.h"
+
 /**
  * run_command - looks path dirs for command and execs
  * @params: parameters
  */
 void run_command(param_t *params)
 {
-	char *exeFile = NULL;
-	pid_t pid;
-	void (*buildin)(param_t *);
+	void (*builtin_func)(param_t *) = get_builtin(params);
+	if (builtin_func)
+	{
+		builtin_func(parama);
+		return;
+	}
 
-	buildin = get_builtin(params);
-	if (buildin)
-	{
-		buildin(params);
-		return;
-	}
-	exeFile = get_file(params);
-	if (!exeFile)
-	{
-		return;
-	}
+	pid_t pid;
+	int status;
+
+	
 	pid = fork();
-	if (pid < 0)
+	if (pid == 0)
 	{
-		free_params(params);
-		exit(98);
+		/* Child process */
+		execve(params->args[0], params->args, params->env_head);
+		perror("execve");
+		exit(127); /* Command not found */
 	}
-	else if (pid == 0)
+	else if (pid < 0)
 	{
-		execve(exeFile, params->args, NULL);
+		/* Fork failed */
+		perror("fork");
 	}
 	else
 	{
-		wait(&params->status);
-		params->status = WEXITSTATUS(params->status);
-		free(exeFile);
+		wait(&status);
+		if (WIFEXITED(status))
+			params->status = WEXITSTATUS(status);
 	}
 }

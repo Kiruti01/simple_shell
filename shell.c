@@ -13,15 +13,14 @@ param_t *init_param(char **argv, char **env);
  * @env: Null terminated env vars list
  * Return: 0 on success
  */
-int main(int __attribute__((unused)) argc, char **argv, char **env)
+int main(void)
 {
 	param_t *params = NULL;
-	int cond = -2, status;
-	unsigned int i;
+	int cond = -2;
 	char *state = NULL;
 	size_t size = BUFFER_SIZE;
 
-	params = init_param(argv, env);
+	params = init_param(NULL, NULL);
 	if (!params)
 		exit(-1);
 	signal(SIGINT, sigint_handler);
@@ -29,44 +28,44 @@ int main(int __attribute__((unused)) argc, char **argv, char **env)
 	{
 		if (cond == -1)
 		{
-			status = params->status;
-			_printf("BenShell($) \n");
+			_printf("Shell($) \n");
 			free_params(params);
 			return (status);
 		}
-		for (i = 0; i < BUFFER_SIZE; i++)
+		for (unsigned int i = 0; i < BUFFER_SIZE; i++)
 			(params->buffer)[i] = 0;
-		params->tokCount = 0;
+
 		if (isatty(STDIN_FILENO))
-			_printf("BenShell($): ");
+			_printf("Shell($): ");
 		/*cond = _getline(params);*/
 		cond = getline(&params->buffer, &size, stdin);
-		params->lineCount++;
-		if (cond == -1 && _strlen(params->buffer) == 0)
+		if (cond == -1)
 		{
-			status = params->status;
+			_printf("\n");
 			free_params(params);
-			return (status);
+			return (0);
 		}
+		params->LineCount++;
 		state = NULL;
-		params->nextCommand = _strtok(params->buffer, ";\n", &state);
+		params->nextCommand = _strtok(params->buffer, "\t\n", &state);
 		while (params->nextCommand)
 		{
 			params->tokCount = process_string(params);
 			if (params->tokCount == 0)
 				break;
 			run_command(params);
-			for (i = 0; i < params->argsCap; i++)
+			for (unsigned int i = 0; i < params->argsCap; i++)
 			{
 				free(params->args[i]);
 				params->args[i] = NULL;
 			}
 			params->tokCount = 0;
 			free(params->nextCommand);
-			params->nextCommand = _strtok(params->buffer, ";\n",
+			params->nextCommand = _strtok(NULL, "\t\n",
 						      &state);
 		}
 	}
+	return (0);
 }
 /**
  * init_param - start params

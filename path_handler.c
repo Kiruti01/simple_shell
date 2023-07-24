@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
-char* find_command_in_path(const char* command)
+char* find_command_in_path(char* command)
 {
 	char* path = getenv("PATH");
 	if (path == NULL)

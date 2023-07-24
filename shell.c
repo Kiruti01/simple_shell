@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
+#include "path_handler.h"
 
 /**
  * execute_command - Excts gvn cmd using fork and exec functions.
@@ -42,9 +43,38 @@ void execute_command(char *command)
 	else
 	{
 		/* Output an error message for unsupported commands */
-		char error_message[] = "Command not supported. Only /bin/ls is allowed.\n";
+		char *full_path = find_command_in_path(command);
+		if (full_path != NULL)
+		{
+			/* Fork a new process to execute the command from PATH*/
+			pid_t pid = fork();
 
-		write(STDOUT_FILENO, error_message, strlen(error_message));
+			if (pid == -1)
+			{
+				/*Forking error*/
+				perror("fork");
+			}
+			else if (pid == 0)
+			{
+				/* Child process: execute the command from PATH*/
+				execute_full_path(full_path);
+				/* Exit the child process after execution*/
+				exit(EXIT_SUCCESS);
+			}
+			else
+			{
+				/* Parent process: wait for the child to complete*/
+				int status;
+				waitpid(pid, &status, 0);
+			}
+			free(full_path);
+		}
+		else
+		{
+			/*Output an error message for unsupported commands*/
+			char error_message[] = "Command not found.\n";
+			write(STDOUT_FILENO, error_message, strlen(error_message));
+		}
 	}
 }
 

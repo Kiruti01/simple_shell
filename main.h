@@ -1,53 +1,75 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef _MAIN_H_
+#define _MAIN_H_
+#define NULL_PTR -1
+#define WRONG_SPECIFIER -2
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <stdbool.h>
+/**
+ * get_char - put a character into a memory block allocated using malloc
+ * 
+ * @c: character
+ *
+ * Return: pointer to that memory block, NULL if error
+ */
+char *get_char(char c);
 
-void sigint_handler(int sig_int);
-bool exit_op(char  **argv);
-void inter_rupt(char *buffer);
-size_t white_space(char *t_buf);
+/**
+ * get_string - put str into a memblock allocated using malloc
+ * @s: string
+ * Return: pointer to that memory block, NULL if error
+ */
+char *get_string(char *s);
+
+/**
+ * put_number - put int into block of mem
+ * @n: integer
+ * Return: pointer to mem block, NULL if error
+ */
+char *get_number(int n);
+
+/**
+ * print_arg - put one passed in param into a block of mem
+ * @type: type of the param
+ * Return: pointer memblock, NULL if error
+ */
+char *get_arg(char type, ...);
+
+/**
+ * get_binary - convts an unsigned int to bin
+ * @n: integer
+ *
+ * Return: pointer to bin
+ */
+char *get_binary(unsigned int n);
+
+/**
+ * get_rev - reverse a str
+ * @s: string
+ * Return: str reversed
+ */
+char *get_rev(char *s);
+
+/**
+ * get_rot13 - rot13 as a str
+ * @s: str
+ * Return: rot13
+ */
+char *get_rot13(char *s);
+
+char *str_concat(char *, char *);
+
+char *string_nconcat(char *, char *, unsigned int);
+
+int _strlen(char *);
+
+int _printf(const char *, ...);
+
 char *_strchr(char *s, char c);
-char **check_quote(char *buffer, char **word);
-extern char **environ;
-void put_err(char *prog_name, char *cmd);
 
-/* HELPERS FILE PROTOTYPES */
-int put_char(char c);
-void put_prompt(void);
-char *_strdup(char *str);
+int _atoi(char *s);
 
-/* PARSER PROTOTYPE */
-char **break_line(char *buf_tok);
+int _strcmp(char *, char *);
 
-/* EXE PROTOTYPE */
-
-
-/* PATH_FINDER PROTOTYPE */
-char *_path(char *file_name, char *all_path);
-/* ENVIRON PROTOTYPE */
-char *_getenv(char **env, char *environ[]);
-/* PUT_ENV PROTOTYPE */
-bool put_env(char **env);
-/* FORK_CALLER PROTOTYPE */
-void call_fork(char **argv, char *prog_name, char *full_path, char **env);
-/* STRINGS PROTOTYPES */
-int _strlen(char *s);
-char *_strcpy(char *dest, char *src);
-char *_strcat(char *dest, char *src);
-int _strcmp(char *s1, char *s2);
-int _strncmp(char *s1, char *s2, int n);
-
-
+int _strcmp_n(char *, char *, int n);
 
 
 #endif

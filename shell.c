@@ -26,34 +26,36 @@ void display_prompt(void)
 
 void execute_command(char *command, char *args[])
 {
-    pid_t pid = fork();
+    if (access(command, X_OK) == 0)
+    {
+        pid_t pid = fork();
 
-    if (pid < 0)
-    {
-        write(STDERR_FILENO, "Fork Failed.\n", 13);
-        return;
-    }
-    else if (pid == 0)
-    {
-        /*Child process*/
-        /* check if cmd is '/bin/ls'*/
-        if (strcmp(command, "/bin/ls") == 0)
+        if (pid < 0)
         {
-            execve(command, args, NULL);
+            write(STDERR_FILENO, "Fork Failed.\n", 13);
+            return;
+        }
+        else if (pid == 0)
+        {
+            /*Child process*/
+            /* check if cmd is '/bin/ls'*/
+            if (strcmp(command, "/bin/ls") == 0)
+            {
+                execve(command, args, NULL);
+            }
+            else
+            {
+                char error_msg[100];
+                snprintf(error_msg, sizeof(error_msg), "Command not found: %s\n", command);
+                write(STDERR_FILENO, error_msg, strlen(error_msg));
+                _exit(EXIT_FAILURE);
+            }
         }
         else
         {
-            char error_msg[100];
-            snprintf(error_msg, sizeof(error_msg), "Command not found: %s\n", command);
-            write(STDERR_FILENO, error_msg, strlen(error_msg));
-            _exit(EXIT_FAILURE);
+            /* Parent process*/
+            int status;
+
+            wait(&status);
         }
     }
-    else
-    {
-        /* Parent process*/
-        int status;
-
-        wait(&status);
-    }
-}

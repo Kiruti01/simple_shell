@@ -18,35 +18,33 @@
 
 int main(void)
 {
-    char command[MAX_COMMAND_LENGTH];
-    char *args[MAX_COMMAND_LENGTH];
-    char *token;
+	char command[MAX_COMMAND_LENGTH];
+    	char *args[MAX_COMMAND_LENGTH];
+    	char *token;
 
-    while (1)
-    {
-        display_prompt();
+	while (1)
+	{
+		display_prompt();
 
-        if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
-        {
-            /* Handle the end of file condition (Ctrl+D) */
-            write(1, "\n", 1);
-            break;
-        }
+		if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
+		{
+			/* Handle the end of file condition (Ctrl+D) */
+			write(1, "\n", 1);
+			break;
+		}
+		/* Remove the trailing newline character from the input */
 
-        /* Remove the trailing newline character from the input */
-        command[strcspn(command, "\n")] = '\0';
+		command[strcspn(command, "\n")] = '\0';
+		int i = 0;
+		token = strtok(command, " ");
+		while (token != NULL)
+		{
+	    		args[i++] = token;
+	    		token = strtok(NULL, " ");
+		}
+		args[i] = NULL; /*Set the last element to NULL to terminate the args array*/
 
-        int i = 0;
-        token = strtok(command, " ");
-        while (token != NULL)
-        {
-            args[i++] = token;
-            token = strtok(NULL, " ");
-        }
-        args[i] = NULL; /*Set the last element to NULL to terminate the args array*/
-
-        execute_command(args[0], args);
-    }
-
-    return (0);
+		execute_command(args[0], args);
+	}
+	return (0);
 }

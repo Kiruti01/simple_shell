@@ -8,21 +8,21 @@
 param_t *init_param(char **argv, char **env);
 /**
  * main - entry point for simple shell
- * @argc: argument count
- * @argv: Null terminated argument list
- * @env: Null terminated environment variables list
- *
+ * @argc: arg count
+ * @argv: Null terminated arglist
+ * @env: Null terminated env vars list
  * Return: 0 on success
  */
-int main(int __attribute__((unused)) argc, char **argv, char **env)
+int main(void)
 {
+	int status;
 	param_t *params = NULL;
-	int cond = -2, status;
+	int cond = -2;
 	unsigned int i;
 	char *state = NULL;
 	size_t size = BUFFER_SIZE;
 
-	params = init_param(argv, env);
+	params = init_param(NULL, NULL);
 	if (!params)
 		exit(-1);
 	signal(SIGINT, sigint_handler);
@@ -31,15 +31,16 @@ int main(int __attribute__((unused)) argc, char **argv, char **env)
 		if (cond == -1)
 		{
 			status = params->status;
-			_printf("BenShell($) \n");
+			_printf("Shell($) \n");
 			free_params(params);
 			return (status);
 		}
 		for (i = 0; i < BUFFER_SIZE; i++)
 			(params->buffer)[i] = 0;
 		params->tokCount = 0;
+
 		if (isatty(STDIN_FILENO))
-			_printf("BenShell($): ");
+			_printf("Shell($): ");
 		/*cond = _getline(params);*/
 		cond = getline(&params->buffer, &size, stdin);
 		params->lineCount++;
@@ -50,7 +51,7 @@ int main(int __attribute__((unused)) argc, char **argv, char **env)
 			return (status);
 		}
 		state = NULL;
-		params->nextCommand = _strtok(params->buffer, ";\n", &state);
+		params->nextCommand = _strtok(params->buffer, "\t\n", &state);
 		while (params->nextCommand)
 		{
 			params->tokCount = process_string(params);
@@ -64,15 +65,15 @@ int main(int __attribute__((unused)) argc, char **argv, char **env)
 			}
 			params->tokCount = 0;
 			free(params->nextCommand);
-			params->nextCommand = _strtok(params->buffer, ";\n",
+			params->nextCommand = _strtok(params->buffer, "\t\n",
 						      &state);
 		}
 	}
 }
 /**
- * init_param - initialize params
- * @argv: command line argument
- * @env: environment variables
+ * init_param - start params
+ * @argv: cmd line arg
+ * @env: env var
  * Return: param on success
  */
 param_t *init_param(char **argv, char **env)

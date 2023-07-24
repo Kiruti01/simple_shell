@@ -1,9 +1,9 @@
 #include <stdlib.h>
 /**
- * move_left -removes leading 0's
+ * move_left -removs leading 0's
  * @a: buffer
- * @size: size of array
- * @num: number of digits in the binary number
+ * @size: size array
+ * @num: numb of digits in the bin num
  * Return: buffer
  */
 char *move_left(char *a, int size, int num)
@@ -18,9 +18,9 @@ char *move_left(char *a, int size, int num)
 }
 
 /**
- * get_binary - converts an unsigned int to binary
+ * get_binary - convrts an unsigned int to bin
  * @n: integer
- * Return: pointer to binary
+ * Return: pointer to bin
  */
 
 char *get_binary(unsigned int n)
@@ -64,8 +64,8 @@ char *get_binary(unsigned int n)
 
 
 /**
- * get_char - returns a copied char
- * @c: char to be copied
+ * get_char - returns copied char
+ * @c: char be copied
  * Return: ptr of copied char
  */
 char *get_char(char c)
@@ -83,9 +83,9 @@ char *get_char(char c)
 }
 
 /**
- * get_string - returns a new duplicated string
- * @s: string to be copied
- * Return: Null if string is null, else pointer of copied string
+ * get_string - returns new duplicted str
+ * @s: str to be copied
+ * Return: Null if str is null, else pointer of copied str
  */
 char *get_string(char *s)
 {
@@ -124,16 +124,16 @@ char *get_string(char *s)
 }
 
 /**
- * get_number - put integer into a memory block as string
+ * get_number - put int in a mem block as str
  * @n: integer
  *
- * Return: pointer to integer string, NULL on error
+ * Return: pointer to int str, NULL on error
  */
 char *get_number(int n)
 {
 	int i, len = 0, tmp;
 	char *buf = NULL;
-	/* find number bytes to allocate */
+	/* find num bytes to allocate */
 	tmp = n;
 	while (tmp >= 10 || tmp <= -10)
 	{

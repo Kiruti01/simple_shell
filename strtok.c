@@ -2,11 +2,11 @@
 #include "shell.h"
 #include "main.h"
 /**
- * isDelim - check if a character is one of the delimiters
- * @c: character
- * @delim: delimeters
+ * isDelim - check if a char is one of delims
+ * @c: char
+ * @delim: delims
  *
- * Return: 1 if it is a delimiter, 0 otherwise
+ * Return: 1 if it is a delim, 0 otherwise
  */
 int isDelim(char c, char *delim)
 {
@@ -20,11 +20,11 @@ int isDelim(char c, char *delim)
 }
 /**
  * _strtok - strtok_r
- * @str: string to be passed
- * @delim: delimiters for tokens
+ * @str: str to be passed
+ * @delim: delims for toks
  * @savePtr: state
  *
- * Return: next token found in string, NULL if not found
+ * Return: next token found in str, NULL if not found
  */
 char *_strtok(char *str, char *delim, char **savePtr)
 {

@@ -5,7 +5,7 @@
 #include "main.h"
 
 /**
- * list_len - the number of elements in a linked list_t list.
+ * list_len - the num of elemnts in linkd list_t list.
  * @h: start of list
  *
  * Return: length of list
@@ -20,7 +20,7 @@ size_t list_len(list_t *h)
 }
 
 /**
- * print_list - prints all the elements of a list_t list.
+ * print_list - outputs all elements of a list_t list.
  * @h: start of list
  *
  * Return: length of list
@@ -40,7 +40,7 @@ size_t print_list(list_t *h)
 }
 
 /**
- * add_node - adds a new node at the beginning of a list_t list.
+ * add_node - ads nw node at beginning of  list_t list.
  * @head: start of list
  * @str: key
  * @val: value
@@ -64,8 +64,8 @@ list_t *add_node(list_t **head, char *str, char *val)
 }
 
 /**
- * get_node - search for a node
- * @head: start of list
+ * get_node - search for node
+ * @head: start list
  * @str: key
  * Return: ptr to desired node, NULL if not found
  */
@@ -86,8 +86,8 @@ list_t *get_node(list_t *head, char *str)
 }
 
 /**
- * free_list - clears a linked list from mem
- * @head: ptr to head of linked list
+ * free_list - clear linked list from mem
+ * @head: ptr to head linked list
  */
 void free_list(list_t *head)
 {

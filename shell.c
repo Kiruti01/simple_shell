@@ -7,9 +7,14 @@
 #include <sys/wait.h>
 #include "path_handler.h"
 
+static void execute_builtin_command(char *command, char **envp);
+
+static void execute_path_command(char *command, char **envp);
+
 /**
  * execute_command - Excts gvn cmd using fork and exec functions.
- * @command: The command to execute.
+ * @command: The command to execute
+ * @envp: pointr to arr for env vats.
  */
 
 void execute_command(char *command, char **envp)
@@ -50,41 +55,69 @@ void execute_command(char *command, char **envp)
 	}
 	else
 	{
-		/* Output an error message for unsupported commands */
-		char *full_path = find_command_in_path(command);
-		if (full_path != NULL)
-		{
-			/* Fork a new process to execute the command from PATH*/
-			pid_t pid = fork();
+		execute_path_command(command, envp);
+	}
+}
 
-			if (pid == -1)
-			{
-				/*Forking error*/
-				perror("fork");
-			}
-			else if (pid == 0)
-			{
-				/* Child process: execute the command from PATH*/
-				execute_full_path(full_path);
-				/* Exit the child process after execution*/
-				exit(EXIT_SUCCESS);
-			}
-			else
-			{
-				/* Parent process: wait for the child to complete*/
-				int status;
-				waitpid(pid, &status, 0);
-			}
-			free(full_path);
+/**
+ * execute_builtin_command - Execute built-in commands.
+ * @command: Command to execute.
+ * @envp: Pointer to an array for environment variables.
+ */
+
+static void execute_builtin_command(char *command, char **envp)
+{
+	if (strcmp(command, "env") == 0)
+	{
+		execute_env(envp);
+	}
+}
+
+/**
+ * execute_path_command - Execute commands from PATH.
+ * @command: Command to execute.
+ * @envp: Pointer to an array for environment variables.
+ */
+static void execute_path_command(char *command, char **envp)
+{
+	/* Output an error message for unsupported commands */
+	char *full_path = find_command_in_path(command);
+
+	if (full_path != NULL)
+	{
+		/* Fork a new process to execute the command from PATH*/
+		pid_t pid = fork();
+
+		if (pid == -1)
+		{
+			/*Forking error*/
+			perror("fork");
+		}
+		else if (pid == 0)
+		{
+			/* Child process: execute the command from PATH*/
+			execute_full_path(full_path);
+			/* Exit the child process after execution*/
+			exit(EXIT_SUCCESS);
 		}
 		else
 		{
-			/*Output an error message for unsupported commands*/
-			char error_message[] = "Command not found.\n";
-			write(STDOUT_FILENO, error_message, strlen(error_message));
+			/* Parent process: wait for the child to complete*/
+			int status;
+
+			waitpid(pid, &status, 0);
 		}
+		free(full_path);
+	}
+	else
+	{
+		/*Output an error message for unsupported commands*/
+		char error_message[] = "Command not found.\n";
+
+		write(STDOUT_FILENO, error_message, strlen(error_message));
 	}
 }
+
 
 /**
  * execute_full_path - Executes the givn cmd wen full path provided.

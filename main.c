@@ -5,9 +5,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
-	run_shell();
+	run_shell(envp);
 	return (0);
 }
 
@@ -16,7 +16,7 @@ int main(void)
  * Displays the shell prompt, reads input, and excts cmd
  */
 
-void run_shell(void)
+void run_shell(char **envp)
 {
 	char *command;
 
@@ -40,7 +40,7 @@ void run_shell(void)
 		remove_newline(command);
 
 		/* Execute the command */
-		execute_command(command);
+		execute_command(command, envp);
 
 		/* Free the allocated memory for the command */
 		free(command);

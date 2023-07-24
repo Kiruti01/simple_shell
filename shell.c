@@ -1,4 +1,5 @@
 #include "shell.h"
+#include "builtins.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -11,8 +12,15 @@
  * @command: The command to execute.
  */
 
-void execute_command(char *command)
+void execute_command(char *command, char **envp)
 {
+	/*check if cmd is 'env'*/
+	if (strcmp(command, "env") == 0)
+	{
+		execute_env(envp); /* Call the execute_env function from builtins.c*/
+		return;
+	}
+
 	/* Check if the command is "/bin/ls"*/
 	if (strcmp(command, "/bin/ls") == 0)
 	{

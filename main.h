@@ -1,6 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void run_shell(void);
+void run_shell(char **envp);
 
 #endif

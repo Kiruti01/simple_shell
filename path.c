@@ -4,12 +4,12 @@
 #include "main.h"
 #include "shell.h"
 #include "lists.h"
+
 /**
- * get_file - get correct path to a command file
+ * get_file - get correct path to a cmd file
  * @params: parameters
- *
- * Return: string of valid path to command file, NULL if not found
- * The string needs to be freed
+ * Return: str of valid path to cmd file, NULL if not found
+ * The str needs to be freed
  */
 char *get_file(param_t *params)
 {
@@ -59,4 +59,3 @@ char *get_file(param_t *params)
 	free(exeArg);
 	return (NULL);
 }
-

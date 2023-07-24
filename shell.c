@@ -6,109 +6,101 @@
 #include <sys/wait.h>
 
 #define MAX_COMMAND_LENGTH 100
-#define MAX_ARGUMENTS 10
 
-void run_shell(void)
+/* Define prompt as a global variable*/
+const char prompt[] = "My_shell :)$ ";
+
+/**
+ * Display_prompt - Displays the shell prompt
+ */
+void display_prompt(void)
 {
-<<<<<<< HEAD
-	char command[MAX_COMMAND_LENGTH];
-	char prompt[] = "simple_shell:) -> ";
-=======
-    char input[MAX_COMMAND_LENGTH];
-    char *arguments[MAX_ARGUMENTS + 1[;MAX_COMMAND_LENGTH];
-    char prompt[] = "simple_shell :) -> ";
->>>>>>> 35a227e5c9e8d2b42853c4762f7b9e45c4fcd51d
+    write(STDOUT_FILENO, prompt, strlen(prompt));
+}
 
-	while (1)
-	{
-		/*Display the prompt and wait for user input*/
-		write(STDOUT_FILENO, prompt, strlen(prompt));
-		/*Read the command from the user*/
-		if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
-		{
-			/* Handle end of file (Ctrl+D)*/
-			printf("\n");
-			break;
-		}
+/**
+ * execute_command - Executes given cmd using execve
+ * @command: the cmd to execute
+ * @args: array of argumnts for cmd
+ */
 
-<<<<<<< HEAD
-		/* Remove the trailing newline character*/
-		command[strcspn(command, "\n")] = '\0';
+void execute_command(char *command, char *args[])
+{
+    pid_t pid = fork();
 
-		/* Fork a new process to execute the command*/
-		pid_t pid = fork();
-=======
-        /*Read the command from the user*/
-        if (fgets(input, MAX_COMMAND_LENGTH, stdin) == NULL)
+    if (pid < 0)
+    {
+        write(STDERR_FILENO, "Fork Failed.\n", 13);
+        return;
+    }
+    else if (pid == 0)
+    {
+        /*Child process*/
+        /* check if cmd is '/bin/ls'*/
+        if (strcmp(command, "/bin/ls") == 0)
         {
-            /* Handle end of file (Ctrl+D)*/
-            printf("\n");
-            break;
-        }
-
-        /* Remove the trailing newline character*/
-        input[strcspn(command, "\n")] = '\0';
-
-        /* Tokenize input into command and arg*/
-        int argc = 0;
-        char *token = strtok(input, " ");
-        while (token != NULL && argc < MAX_ARGUMENTS)
-        {
-            arguments[argc] = token;
-            argc++;
-            token = strtok(NULL, " ");
-        }
-
-        arguments[argc] = NULL; /* terminate arg array*/
->>>>>>> 35a227e5c9e8d2b42853c4762f7b9e45c4fcd51d
-
-		if (pid == -1)
-		{
-			/*Forking error*/
-			perror("fork");
-		}
-		else if (pid == 0)
-		{
-			/*Child process: execute the command*/
-			if (execlp(command, command, (char *)NULL) == -1)
-			{
-				/* Command not found or execution error */
-				perror("execlp");
-				exit(EXIT_FAILURE);
-			}
-		}
-		else
-		{
-			/*Parent process: wait for the child to complete*/
-			int status;
-
-<<<<<<< HEAD
-			waitpid(pid, &status, 0);
-		}
-	}
-=======
-        if (pid == -1)
-        {
-            /*Forking error*/
-            perror("fork");
-        }
-        else if (pid == 0)
-        {
-            /*Child process: execute the command*/
-            if (execvp(arguments[0], arguments) == -1)
-            {
-                /*Command not found or execution error*/
-                perror("execvp");
-                exit(EXIT_FAILURE);
-            }
+            execve(command, args, NULL);
         }
         else
         {
-            /*Parent process: wait for the child to complete*/
-            int status;
-
-            waitpid(pid, &status, 0);
+            char error_msg[100];
+            snprintf(error_msg, sizeof(error_msg), "Command not found: %s\n", command);
+            write(STDERR_FILENO, error_msg, strlen(error_msg));
+            _exit(EXIT_FAILURE);
         }
     }
->>>>>>> 35a227e5c9e8d2b42853c4762f7b9e45c4fcd51d
+    else
+    {
+        /* Parent process*/
+        int status;
+
+        wait(&status);
+    }
+}
+
+/**
+ * main - The main function of the simple shell.
+ * It reads user input,
+ * executes the entered commands,
+ * and displays the prompt again.
+ * The shell continues running
+ * until the user presses Ctrl+D to exit.
+ *
+ * Return: Always 0
+ */
+
+int main(void)
+{
+    char command[MAX_COMMAND_LENGTH];
+
+    while (1)
+    {
+        display_prompt();
+
+        if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
+        {
+            /* Handle the end of file condition (Ctrl+D)*/
+            write(STDOUT_FILENO, "\n", 1);
+            break;
+        }
+
+        /* Remove the trailing newline character from the input*/
+        command[strcspn(command, "\n")] = '\0';
+
+        /*split into arguments*/
+        char *args[MAX_COMMAND_LENGTH];
+        char *token;
+        int i = 0;
+        token = strtok(command, " ");
+        while (token != NULL)
+        {
+            args[i++] = token;
+            token = strtok(NULL, " ");
+        }
+        args[i] = NULL;
+
+        execute_command(args[0], args);
+    }
+
+    return (0);
 }

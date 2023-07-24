@@ -5,35 +5,16 @@
 #include <string.h>
 #include <sys/wait.h>
 
-void run_shell(void)
+/**
+ * execute_command - Excts gvn cmd using fork and exec functions.
+ * @command: The command to execute.
+ */
+
+void execute_command(char *command)
 {
-	char *command = NULL;
-	ssize_t command_len = 0;
-	char prompt[] = "my_simple_shell $ ";
-
-	while (1)
+	/* Check if the command is "/bin/ls"*/
+	if (strcmp(command, "/bin/ls") == 0)
 	{
-		/*display the prompt and wait for user input*/
-		write(STDOUT_FILENO, prompt, strlen(prompt));
-
-		/* Read the command from the user*/
-		ssize_t input_length = getline(&command, &command_len, stdin);
-
-		/* Check if end of file (Ctrl+D) or error */
-		if (input_length == -1)
-		{
-			/* Handle end of file (Ctrl+D)*/
-			write(STDOUT_FILENO, "\n", 1);
-			break;
-		}
-
-		/* Remove the trailing newline character*/
-		if (command[input_length - 1] == '\n')
-		{
-			command[input_length - 1] = '\0';
-			input_length--;
-		}
-
 		/* Fork a new process to execute the command*/
 		pid_t pid = fork();
 
@@ -45,39 +26,64 @@ void run_shell(void)
 		else if (pid == 0)
 		{
 			/* Child process: execute the command*/
-			if (command[0] == '/')
-			{
-				/* Full path provided, execute directly */
-				if (execlp(command, command, (char*)NULL) == -1)
-				{
-					/* Command not found or execution error */
-					char error_message[] = "Command not found: No such file or directory \n";
-					write(STDOUT_FILENO, error_message, strlen(error_message));
-					exit(EXIT_FAILURE);
-				}
-			}
-			else
-			{
-				/* Prepend '/bin/' to the command and try to execute it */
-				char bin_command[input_length + 5];/* Room for "/bin/" and null terminator*/
-				snprintf(bin_command, sizeof(bin_command), "/bin/%s", command);
+			execute_full_path(command);
 
-				if (execlp(bin_command, command, (char*)NULL) == -1)
-				{
-					/* Command not found or execution error*/
-					char error_message[] = "Command not found: No such file or directory\n";
-					write(STDOUT_FILENO, error_message, strlen(error_message));
-					free(command);
-					exit(EXIT_FAILURE);
-				}
-			}
+			/* Exit the child process after execution */
+			exit(EXIT_SUCCESS);
 		}
 		else
 		{
-			/* Parent process: wait for the child to complete*/
+			/* Parent process: wait for the child to complete */
 			int status;
+
 			waitpid(pid, &status, 0);
 		}
 	}
-	free(command);
+	else
+	{
+		/* Output an error message for unsupported commands */
+		char error_message[] = "Command not supported. Only /bin/ls is allowed.\n";
+
+		write(STDOUT_FILENO, error_message, strlen(error_message));
+	}
+}
+
+/**
+ * execute_full_path - Executes the givn cmd wen full path provided.
+ * It directly executes the command using execlp.
+ * @command: The command to execute.
+ */
+
+void execute_full_path(char *command)
+{
+	if (execlp(command, command, (char *)NULL) == -1)
+	{
+		/* Command not found or execution error */
+		char error_message[] = "Command not found: No such file or directory \n";
+
+		write(STDOUT_FILENO, error_message, strlen(error_message));
+		exit(EXIT_FAILURE);
+	}
+}
+
+/**
+ * execute_with_path - Exctes givn cmd wen full path not provided.
+ * It prepends "/bin/" to cmd n tries to excte using execlp.
+ * @command: The command to execute.
+ */
+
+void execute_with_path(char *command)
+{
+	char bin_command[100];
+
+	snprintf(bin_command, sizeof(bin_command), "/bin/%s", command);
+
+	if (execlp(bin_command, command, (char *)NULL) == -1)
+	{
+		/* Command not found or execution error */
+		char error_message[] = "Command not found: No such file or directory\n";
+
+		write(STDOUT_FILENO, error_message, strlen(error_message));
+		exit(EXIT_FAILURE);
+	}
 }

@@ -29,6 +29,7 @@ void execute_command(char *command, char *args[])
 {
     if (access(command, X_OK) == 0)
     {
+        /* The command exists and is executable in the current directory */
         pid_t pid = fork();
 
         if (pid < 0)
@@ -38,7 +39,37 @@ void execute_command(char *command, char *args[])
         }
         else if (pid == 0)
         {
-            /*Child process*/
+            /* Child process */
+
+            // Redirect standard input, output, and error to the corresponding streams
+            int input_fd = open("/dev/null", O_RDONLY); // Redirect standard input to /dev/null
+            if (input_fd < 0)
+            {
+                perror("Error opening /dev/null");
+                exit(EXIT_FAILURE);
+            }
+            dup2(input_fd, STDIN_FILENO);
+            close(input_fd);
+
+            int output_fd = open("/dev/tty", O_WRONLY); // Redirect standard output to the terminal
+            if (output_fd < 0)
+            {
+                perror("Error opening terminal");
+                exit(EXIT_FAILURE);
+            }
+            dup2(output_fd, STDOUT_FILENO);
+            close(output_fd);
+
+            int error_fd = open("/dev/tty", O_WRONLY); // Redirect standard error to the terminal
+            if (error_fd < 0)
+            {
+                perror("Error opening terminal");
+                exit(EXIT_FAILURE);
+            }
+            dup2(error_fd, STDERR_FILENO);
+            close(error_fd);
+
+            // Execute the command
             execve(command, args, NULL);
 
             char error_msg[100];

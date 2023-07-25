@@ -8,7 +8,7 @@
 param_t *init_param(char **argv, char **env);
 
 /**
- * main - entry point simple shell
+ * main - entry point simpleshell
  * @argc: arg count
  * @argv: Null terminated arg list
  * @env: Null terminated environ var list

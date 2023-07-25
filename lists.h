@@ -5,15 +5,12 @@
 
 /**
  * struct list_s - singly linked list node
- * @str: string data
- * @val: value string data
- * @len: length of the string data
- * @valLen: length of the value string data
+ * @str: str data
+ * @val: val str data
+ * @len: length of the str data
+ * @valLen: length of the val str data
  * @next: pointer to the next node in the list
- *
- * Description: This struct represents a node in a singly linked list
- * for the ALX shell project
-*/
+ */
 
 typedef struct list_s
 {

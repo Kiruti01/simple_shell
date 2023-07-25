@@ -4,12 +4,14 @@
 #include "shell.h"
 #include "main.h"
 
+
 /**
- * list_len - num  elements in linked list_t list.
- * @h: start list
+ * list_len - Get the number of elements in a linked list_t list.
+ * @h: The head of the list.
  *
- * Return: len of list
+ * Return: The number of elements in the list.
  */
+
 size_t list_len(list_t *h)
 {
 	size_t i;
@@ -25,6 +27,8 @@ size_t list_len(list_t *h)
  *
  * Return: length of list
  */
+
+
 size_t print_list(list_t *h)
 {
 	int count;
@@ -41,7 +45,7 @@ size_t print_list(list_t *h)
 
 /**
  * add_node - adds new node beginning of a list_t list.
- * @head: start of list
+ * @head: head of list
  * @str: key
  * @val: value
  * Return: ptr to new head
@@ -65,8 +69,8 @@ list_t *add_node(list_t **head, char *str, char *val)
 
 /**
  * get_node - search for node
- * @head: start of list
- * @str: key
+ * @head: head of list
+ * @str: key to search
  * Return: ptr desired node, NULL if not found
  */
 list_t *get_node(list_t *head, char *str)

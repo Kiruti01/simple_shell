@@ -2,40 +2,41 @@
 #include <limits.h>
 #include "shell.h"
 #include "main.h"
+
 /**
- * validNum - check str is a valid number
- * @s: string
+ * validNum - check str is a valid num
+ * @s: str
  *
  * Return: 0 if false, 1 otherwise
  */
-int validNum(char *s)
+int validNum(char *str)
 {
-	while (*s)
+	while (*str)
 	{
-		if (*s > '9' || *s < '0')
+		if (*str > '9' || *str < '0')
 			return (0);
-		s++;
+		str++;
 	}
 	return (1);
 }
 /**
- * _myExit - buildin exit funct
+ * _myExit - builtin exit funct
  * @params: params
  */
 void _myExit(param_t *params)
 {
-	int status = 0;
+	int exit_status = 0;
 
 	if (!params->args[1])
 	{
-		status = params->status;
+		exit_status = params->status;
 		free_params(params);
-		exit(status);
+		exit(exit_status);
 	}
 	if (validNum(params->args[1]))
 	{
-		status = _atoi((params->args)[1]);
-		if (status == -1)
+		exit_status = _atoi((params->args)[1]);
+		if (exit_status == -1)
 		{
 			write_error(params, "Illegal number: ");
 			write(STDERR_FILENO, params->args[1],
@@ -45,7 +46,7 @@ void _myExit(param_t *params)
 			return;
 		}
 		free_params(params);
-		exit(status);
+		exit(exit_status);
 	}
 	else
 	{

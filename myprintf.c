@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdarg.h>
 #include <unistd.h>
 #include "main.h"
 
@@ -10,27 +9,32 @@ int flush_buffer(char *buffer, int *index);
 int print_arg(char *arg);
 
 void get_type(char *format, int *index);
+
+
 /**
- * _printf - prints text to std output specified by format
- * @format: directives fo outputing text
+ * _printf - output text to standard output specified by format
+ * @format: directives for outputting text
  *
- * Return: number of chars output
+ * Return: number of characters output
  */
+
+
+
 int _printf(const char *format, ...)
 {
-	int high, sum = 0, index = 0;
+	size_t high = 0, sum = 0, index = 0;
 	char *arg = NULL;
 	char buffer[BUFFER_SIZE] = {0};
 	va_list params;
 
 	if (!format)
 		return (-1);
-
-	if (_strlen((char *)format) == 1 && format[0] == '%')
+/*secial case only one % sign*/
+	if (_strlen(format) == 1 && format[0] == '%')
 	{
 		return (-1);
 	}
-	high = 0;
+
 	va_start(params, format);
 	while (1)
 	{
@@ -40,7 +44,7 @@ int _printf(const char *format, ...)
 		}
 		if (format[high] == '%')
 		{
-			get_type((char *)format, &high);
+			get_type(format, &high);
 			switch (format[high])
 			{
 			case 'c':

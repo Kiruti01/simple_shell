@@ -56,7 +56,7 @@ int _strcmp_n(char *s1, char *s2, int n)
 	while (n--)
 	{
 		if (*s1 != *s2)
-			return (*s1 -*s2);
+			return (*s1 - *s2);
 		if (*s1 == '\0')
 			break;
 		s1++
@@ -74,9 +74,9 @@ int _strcmp_n(char *s1, char *s2, int n)
  */
 int _atoi(const char *s)
 {
-	int n= 0;
+	int n = 0;
 	inst sihn = 1;
-	
+
 	while (*s == ' ')
 		s++;
 	if (*s == '-' || *s == '+')
@@ -89,11 +89,10 @@ int _atoi(const char *s)
 	while (*s >= '0' && *s <= '9')
 	{
 		if (n > INT_MAX / 10 || (n == INT_MAX / 10 && (*s - '0') > INT_MAX % 10))
-			return -1;
+			return (-1);
 		n = n * 10 + (*s - '0');
 		s++;
 	}
 
 	return (n * sign);
 }
-

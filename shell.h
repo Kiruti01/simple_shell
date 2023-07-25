@@ -58,7 +58,9 @@ int _atoi(const char *s);
 
 char *_strcpy(char *dest, const char *src);
 
-int _getline(param_t *);
+char *rlLine(char **line, size_t oldSize, size_t newSize);
+
+int _getline(param_t *params);
 
 int _strcmp(char *, char *);
 

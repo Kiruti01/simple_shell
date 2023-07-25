@@ -13,15 +13,13 @@
  *
  * Return: new allocated buffer
  */
-char *rlLine(char **line, unsigned int oldSize, unsigned int newSize)
+char *rlLine(char **line, size_t oldSize, size_t newSize)
 {
 	char *newLine = NULL;
-	unsigned int i;
 
-	newLine = malloc(newSize);
 	if (newLine)
 	{
-		for (i = 0; i < oldSize; i++)
+		for (size_t i = 0; i < oldSize; i++)
 			newLine[i] = (*line)[i];
 		free(*line);
 		*line = newLine;
@@ -37,11 +35,14 @@ char *rlLine(char **line, unsigned int oldSize, unsigned int newSize)
 int _getline(param_t *params)
 {
 	char *line = NULL;
-	static unsigned int bufSize = BUFFER_SIZE;
+	static size_t bufSize = BUFFER_SIZE;
 	char *writeHead = line;
-	unsigned int len;
+	size_t len;
 
 	line = malloc(BUFFER_SIZE);
+	if (!line)
+		return (-1);
+
 	do {
 		len = read(0, writeHead, BUFFER_SIZE);
 		if (len == 0)
@@ -56,6 +57,7 @@ int _getline(param_t *params)
 
 	free(params->buffer);
 	params->buffer = line;
+
 	if (len == 0)
 		return (-1);
 	return (_strlen(params->buffer));

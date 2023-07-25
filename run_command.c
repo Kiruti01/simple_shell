@@ -7,8 +7,8 @@
 #include "main.h"
 
 /**
- * run_command - Executes the given command by searching for its path and running it
- * @params: The parameters containing the command and arguments
+ * run_command - Excts gvn cmd by searchn its path and rng it
+ * @params: The param containing the cmd and args
  */
 
 void run_command(param_t *params)

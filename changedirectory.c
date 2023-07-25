@@ -121,9 +121,9 @@ void _cd(param_t *params)
 
 
 /**
- * handle_memory_error - Helper function to handle memory allocation errors
- * @params: shell parameters
- */
+ *  * handle_memory_error - Helper function to handle memory allocation errors
+ *   * @params: shell parameters
+ *    */
 static void handle_memory_error(param_t *params)
 {
 	write(STDERR_FILENO, "cd target malloc error\n", 23);

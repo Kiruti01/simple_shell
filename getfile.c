@@ -124,7 +124,7 @@ char *get_string(char *s)
 }
 
 /**
- * get_number - put int into a memory block as str
+ * get_number - pt int into a memory block as str
  * @n: integer
  *
  * Return: pointer to int str, NULL on error

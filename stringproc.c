@@ -45,7 +45,7 @@ static void expand_alias(param_t *params, char *token)
 }
 
 /**
- * process_string - process next cmd into str toks
+ * process_string - process nxt cmd into str toks
  * @params: params
  *
  * Return: number of tokens

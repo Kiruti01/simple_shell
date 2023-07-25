@@ -4,19 +4,18 @@
 #include <stdio.h>
 #include "lists.h"
 /**
- * struct param_s - structure used to hold all shell variables needed
+ * struct param_s - struct used to hold all shell vars needed
  * @argv: command line argument from main function
  * @buffer: input buffer
- * @args: array of arguments
- * @nextCommand: the next command to process
+ * @args: array of args
+ * @nextCommand: the next cmd to process
  * @argsCap: num of arguments the args array can hold
  * @lineCount: total line of input
  * @tokCount: num of tokens in a line input
  * @status: run command return status
- * @env_head: singly linked list of environment vars
+ * @env_head: singly linked list of environ vars
  * @alias_head: singly linked list of aliases
- * Description: This structures hold all variables that passed into
- * other functions.
+ * Description: structs hold all vars that pass into other funcn.
  */
 typedef struct param_s
 {
@@ -33,9 +32,9 @@ typedef struct param_s
 } param_t;
 
 /**
- * struct op - a buildin function
+ * struct op - a builtin function
  * @name: buildin name
- * @func: pointer to buildin function
+ * @func: pointer to builtin function
  */
 typedef struct op
 {

@@ -9,6 +9,7 @@
  * value str
  * @params: parameters
 */
+
 void _setenv(param_t *params)
 {
 	char *tmp = NULL;
@@ -22,7 +23,7 @@ void _setenv(param_t *params)
 	}
 	while (h)
 	{
-		if (_strcmp(name, h->str) == 0) 
+		if (_strcmp(name, h->str) == 0)
 			/* environ var exists */
 		{
 			tmp = h->val;
@@ -60,7 +61,7 @@ void _unsetenv(param_t *params)
 	}
 	while (h)
 	{
-		if (_strcmp(name, h->str) == 0) 
+		if (_strcmp(name, h->str) == 0)
 			/* environ var exists */
 		{
 			if (h == params->env_head)

@@ -5,7 +5,7 @@
 
 /**
  * expand_alias - Expand alias and add tokens to args array
- * @params: parameters
+ * @params: params
  * @token: token to check for alias expansion
  */
 static void expand_alias(param_t *params, char *token)

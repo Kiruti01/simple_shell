@@ -110,13 +110,6 @@ void _cd(param_t *params)
 			return;
 		}
 	}
-	else
-	{
-		target = _strdup(params->args[1]);
-		if (!target)
-			handle_memory_error(params);
-	}
-	cd_change_directory(params, target);
 }
 
 

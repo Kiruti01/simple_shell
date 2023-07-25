@@ -1,7 +1,7 @@
 #include <unistd.h>
 /**
- * sigint_handler - handle terminate signal
- * @s: signal number
+ * sigint_handler - handle and terminate signal
+ * @s: signal num
  */
 void sigint_handler(int __attribute__((unused)) s)
 {

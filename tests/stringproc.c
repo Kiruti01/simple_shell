@@ -2,9 +2,10 @@
 #include <unistd.h>
 #include "shell.h"
 #include <stdio.h>
+
 /**
- * process_string - process the next command into string tokens
- * @params: parameters
+ * process_string - process next cmd into str toks
+ * @params: params
  *
  * Return: number of tokens
  */

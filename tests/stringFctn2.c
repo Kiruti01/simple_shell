@@ -4,11 +4,11 @@
 #include "shell.h"
 #include "main.h"
 /**
- * _strcpy - copies a string to anther memory adress
- * @src: pointer to the source string
- * @dest: pointer to the dest address
+ * _strcpy - copies a str to anther mem addrss
+ * @src: pointer source str
+ * @dest: pointer destn addrss
  *
- * Return: pointer to the dest
+ * Return: pointer to destn
  */
 char *_strcpy(char *dest, const char *src)
 {
@@ -26,12 +26,12 @@ char *_strcpy(char *dest, const char *src)
 }
 
 /**
- * _strcmp - compares two strings
- * @s1: string 1
- * @s2: string 2
+ * _strcmp - comps two strings
+ * @s1: str 1
+ * @s2: str 2
  *
- * Return: int less than, equal to, or greater than 0 if s1 is, respectively
- * less than, equal to, or greater than s2
+ * Return: int >, =, < 0 if s1 is, respectively
+ * <, =, > s2
  */
 int _strcmp(char *s1, char *s2)
 {
@@ -50,12 +50,12 @@ int _strcmp(char *s1, char *s2)
 
 /**
  * _strcmp_n - compares n bytes of two strings
- * @s1: string 1
- * @s2: string 2
+ * @s1: str 1
+ * @s2: str 2
  * @n: number of bytes to comp
  *
- * Return: int less than, equal to, or greater than 0 if s1 is, respectively
- * less than, equal to, or greater than s2
+ * Return: int <, =, > 0 if s1 is, respectively
+ * <, =, > s2
  */
 int _strcmp_n(char *s1, char *s2, int n)
 {
@@ -75,8 +75,8 @@ int _strcmp_n(char *s1, char *s2, int n)
 
 /**
  * _atoi - turn a str into an int
- * @s: string to eval
- * Return: n the value of the first number in the st0ring
+ * @s: str to eval
+ * Return: n the value of the first number in the str
  */
 int _atoi(char *s)
 {

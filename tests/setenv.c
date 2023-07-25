@@ -4,9 +4,9 @@
 #include "lists.h"
 
 /**
- * _setenv - function searches the environment list to find the
- * environment variable name, and sets to the corresponding
- * value string.
+ * _setenv - funct looks for the environ list to find the
+ * environment var nme, and sets to the corrspndn
+ * value str
  * @params: parameters
 */
 void _setenv(param_t *params)
@@ -22,7 +22,8 @@ void _setenv(param_t *params)
 	}
 	while (h)
 	{
-		if (_strcmp(name, h->str) == 0) /* env var exists */
+		if (_strcmp(name, h->str) == 0) 
+			/* environ var exists */
 		{
 			tmp = h->val;
 			free(tmp);
@@ -38,14 +39,14 @@ void _setenv(param_t *params)
 		}
 		h = h->next;
 	}
-	/* env var DNE */
+
 	params->env_head = add_node(&(params->env_head), name, value);
 	params->status = 0;
 }
 /**
- * _unsetenv - function searches the environment list to find the
- * environment variable name and removes it.
- * @params: parameters
+ * _unsetenv - funct searches environ list to find the
+ * environment var name and removes it.
+ * @params: params
 */
 void _unsetenv(param_t *params)
 {
@@ -59,7 +60,8 @@ void _unsetenv(param_t *params)
 	}
 	while (h)
 	{
-		if (_strcmp(name, h->str) == 0) /* env var exists */
+		if (_strcmp(name, h->str) == 0) 
+			/* environ var exists */
 		{
 			if (h == params->env_head)
 				params->env_head = h->next;

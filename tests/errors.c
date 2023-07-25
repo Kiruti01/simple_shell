@@ -2,15 +2,10 @@
 #include "shell.h"
 #include "main.h"
 /**
- * write_error - write error message to stderr
- * @params: parameters struct containing info about the command and program
- * @msg: error message to print
- *
- * This function takes a parameter struct containing information about current
- * command and program and an error message to print to stderr. The function
- * builds an error message string from the information in the parameter struct
- * and the error message, and writes it to stderr using the write system call.
-*/
+ * write_error - write err_msg to stderr
+ * @params: params struct containing info about the command and program
+ * @msg: err_msg to print
+ */
 void write_error(param_t *params, char *msg)
 {
 	char errBuffer[1024] = {0};

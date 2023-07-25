@@ -1,12 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
+
 /**
- * _realloc - reallocates a memory block using malloc
+ * _realloc - reallocates a memblock using malloc
  * @ptr: old block
- * @old_size: size of the old block
- * @new_size: size of the new block
+ * @old_size: size of old block
+ * @new_size: size of new block
  *
- * Return: pointer to new block
+ * Return: pointer to block
  */
 char **_realloc(char **ptr, unsigned int old_size, unsigned int new_size)
 {

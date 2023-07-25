@@ -1,8 +1,9 @@
 #include <stdlib.h>
+
 /**
- * str_concat - concatenates two strings
- * @s1: first string argument
- * @s2: second string argument
+ * str_concat - joins two strings
+ * @s1: first str arg
+ * @s2: second str arg
  * Return: Null on failure, else ptr to malloc
  */
 char *str_concat(char *s1, char *s2)
@@ -47,9 +48,9 @@ char *str_concat(char *s1, char *s2)
 	return (ptr);
 }
 /**
- * string_nconcat - concatenates two strings
- * @s1: first string argument
- * @s2: second string argument
+ * string_nconcat - joins two strings
+ * @s1: first str arg
+ * @s2: second str arg
  * @n: amount of bytes for s2
  * Return: Null on failure, else ptr to malloc
  */
@@ -96,9 +97,9 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	return (ptr);
 }
 /**
- *_strlen - returns the length of a string
- *@s: string
- *Return: 0 if null, else length without null byte
+ *_strlen - returns the len of a str
+ *@s: str
+ *Return: 0 if null, else len without null byte
  */
 int _strlen(char *s)
 {
@@ -115,14 +116,14 @@ int _strlen(char *s)
 }
 
 /**
- * _strdup - copy a string to a new allocated block of memory
- * @str: string
+ * _strdup - copy a str to a new allocated block of mem
+ * @str: str
  *
- * Return: pointer to duplicated string, NULL if insufficient memory
+ * Return: pointer to duplicated str, NULL if insufficient mem
  */
 char *_strdup(char *str)
 {
-	int len = 0; /* index of terminating null byte */
+	int len = 0;
 	char *ptr = NULL;
 
 	if (!str)
@@ -142,8 +143,8 @@ char *_strdup(char *str)
 }
 
 /**
- * _strchr - locates a character in a string
- * @s: where to start looking
+ * _strchr - locates char in a str
+ * @s: where to start search
  * @c: values to find
  *
  * Return: pointer to begining of mem area

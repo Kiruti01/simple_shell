@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 /**
- * rev_string - Reverses the order of characters in a string.
- * @s: A pointer to a null-terminated string to be reversed.
+ * rev_string - Reverses order of chars in a str
+ * @s: A pointer to a null-terminated str be reversed.
  */
 void rev_string(char *s)
 {
@@ -30,9 +30,9 @@ void rev_string(char *s)
 }
 
 /**
- * get_rev - returns a reversed copy of a string
- * @s: string to be reversed
- * Return: string reversed
+ * get_rev - returns a reversed copy of a str
+ * @s: string tob reversed
+ * Return: str reversed
  */
 char *get_rev(char *s)
 {
@@ -51,10 +51,10 @@ char *get_rev(char *s)
 }
 
 /**
- * rot13 - performs rot13 encryption on a string
+ * rot13 - performs rot13 encryption on a str
  * @s: string to be encrypted
  *
- * Return: pointer to the encrypted string
+ * Return: pointer to the encrypted str
  */
 char *rot13(char *s)
 {
@@ -85,9 +85,9 @@ char *rot13(char *s)
 }
 
 /**
- * get_rot13 - get rot13
+ * get_rot13 - get the rot13
  * @s: string
- * Return: ptr to string
+ * Return: ptr to str
  */
 char *get_rot13(char *s)
 {

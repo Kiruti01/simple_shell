@@ -6,7 +6,7 @@
 #include "lists.h"
 #include "main.h"
 /**
- * run_command - searches path dirs for command and execs
+ * run_command - looks for path dirs for command and execs
  * @params: parameters
  */
 void run_command(param_t *params)

@@ -2,8 +2,8 @@
 
 /**
  * str_concat - joins two strings
- * @s1: first str arg
- * @s2: second str arg
+ * @s1: first str args
+ * @s2: second str args
  * Return: Null on failure, else ptr to malloc
  */
 char *str_concat(char *s1, char *s2)

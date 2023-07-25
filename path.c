@@ -6,9 +6,9 @@
 #include "lists.h"
 
 /**
- * check_file_access - Check if the file exists and is executable
+ * check_file_access - Check file exists and is executable
  * @filename: Name of the file to check
- * @params: Parameters
+ * @params: Params
  *
  * Return: Valid path to cmd file, NULL if not found or not executable
  */
@@ -32,8 +32,8 @@ static char *check_file_access(const char *filename, param_t *params)
 }
 
 /**
- * search_path - Search for the file in the directories listed in PATH
- * @params: Parameters
+ * search_path - lookS for the file in the directories listed in PATH
+ * @params: Params
  *
  * Return: Valid path to cmd file, NULL if not found
  */
@@ -74,7 +74,7 @@ static char *search_path(param_t *params)
 }
 
 /**
- * get_file - Get current path to a command file
+ * get_file - Get crrent path to a command file
  * @params: Parameters
  *
  * Return: Valid path to cmd file, NULL if not found

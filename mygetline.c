@@ -7,7 +7,7 @@
 
 /**
  * rlLine - realloc line buffer
- * @line: tob buffered
+ * @line: tob buffered p
  * @oldSize: somtng borrowed
  * @newSize: somtng blue
  *

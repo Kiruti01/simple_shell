@@ -3,6 +3,8 @@
 #include <limits.h>
 #include "shell.h"
 #include "main.h"
+#include <string.h>
+
 
 /**
  * _strcpy - Copies a string from source to destination

@@ -3,6 +3,9 @@
 #include <unistd.h>
 #include <signal.h>
 #include "shell.h"
+#include <stdarg.h>
+#include <string.h>
+
 #include "main.h"
 #define BUFFER_SIZE 4096
 param_t *init_param(char **argv, char **env);

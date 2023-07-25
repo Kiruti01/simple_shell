@@ -6,31 +6,25 @@
 #include "main.h"
 
 /**
- * get_builtin - Get built-in fnctn
- * @params: Pointer to the param_t struct containing command parameters
+ * get_builtin - check cmd built-in fnctn
+ * @av: args list
  *
  * Return: Function pointer to the built-in function. NULL if not found.
  */
 
-void (*get_builtin(param_t *params))(param_t *)
+void (*get_builtin(char **av))(shell_data * data)
 {
-	op_t ops[] = {
+	int i;
+	builtin_t F[] = {
 		{"exit", _myExit},
-		{"clear", _clear},
-		{"env", _printenv},
 		{"setenv", _setenv},
-		{"cd", _cd},
 		{"unsetenv", _unsetenv},
-		{"alias", _alias},
-		{NULL, NULL},
-	};
-	op_t *op = ops;
+		{NULL, NULL}};
 
-	while (op->name)
+	for (i = 0; F[i].name != NULL; ++i)
 	{
-		if (!_strcmp(params->args[0], op->name))
-			return (op->func);
-		op++;
+		if (_strcmp(av[0], F[i].name) == 0)
+			return (F[i].fun);
 	}
 	return (NULL);
 }

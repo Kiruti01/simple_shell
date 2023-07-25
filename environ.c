@@ -11,15 +11,14 @@
  * Return: A pointer to the val of the environ var, or NULL if not.
  */
 
-char *_getenv(char *name, param_t *params)
+void print_environment(char **env)
 {
-	list_t *ptr = params->env_head;
-
-	while (ptr)
+	/* Iterate through each environment variable and print them*/
+	while (*env != NULL)
 	{
-		if (!_strcmp(name, ptr->str))
-			return (_strdup(ptr->val));
-		ptr = ptr->next;
+		write(STDOUT_FILENO, *env, my_strlen(*env));
+		write(STDOUT_FILENO, "\n", 1);
+		env++;
+
 	}
-	return (NULL);
 }

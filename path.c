@@ -1,88 +1,35 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include "main.h"
 #include "shell.h"
-#include "lists.h"
+#define SIZE 100
 
-/**
- * check_file_access - Check if the file exists and is executable
- * @filename: Name of the file to check
- * @params: Parameters
- *
- * Return: Valid path to cmd file, NULL if not found or not executable
- */
-static char *check_file_access(const char *filename, param_t *params)
+int find_file_in_path(const char *filename)
 {
-	if (access(filename, F_OK | X_OK) == 0)
-		return (_strdup(filename));
+	char *total;
+	struct stat st;
+	char fullPath[SIZE];
+	char *totalPath = getenv("PATH");
+	size_t len;
 
-	if (errno == EACCES)
-	{
-		params->status = 126;
-		write_error(params, "Permission denied\n");
-	}
-	else
-	{
-		params->status = 127;
-		write_error(params, "not found\n");
-	}
+	total = strtok(totalPath, ":");
 
-	return (NULL);
-}
+	do {
+		my_strcpy(fullPath, total);
+		my_strcat(fullPath, "/");
+		my_strcat(fullPath, filename);
+		len = my_strlen(fullPath);
 
-/**
- * search_path - Search for the file in the directories listed in PATH
- * @params: Parameters
- *
- * Return: Valid path to cmd file, NULL if not found
- */
-static char *search_path(param_t *params)
-{
-	char *path = _getenv("PATH", params);
-
-	if (!path)
-	{
-		write_error(params, "not found\n");
-		return (NULL);
-	}
-
-	char *exePath = _strtok(path, ":", NULL);
-	char *exeArg = NULL;
-
-	while (exePath)
-	{
-		exeArg = str_concat(exePath, "/");
-		exeArg = str_concat(exeArg, params->args[0]);
-
-		char *file = check_file_access(exeArg, params);
-
-		if (file)
+		if (stat(fullPath, &st) == 0)
 		{
-			free(path);
-			return (file);
+			write(1, " ", 1);
+			write(1, fullPath, len);
+			write(1, " found\n", 7);
+			return (0);
 		}
+	} while ((total = strtok(NULL, ":")));
 
-		free(exePath);
-		free(exeArg);
+	write(1, " ", 1);
+	write(1, fullPath, len);
+	write(1, " Not found\n", 11);
 
-		exePath = _strtok(NULL, ":", NULL);
-	}
-
-	free(path);
-	return (NULL);
+	return (0);
 }
 
-/**
- * get_file - Get current path to a command file
- * @params: Parameters
- *
- * Return: Valid path to cmd file, NULL if not found
- */
-char *get_file(param_t *params)
-{
-	if (access(params->args[0], F_OK | X_OK) == 0)
-		return (_strdup(params->args[0]));
-
-	return (search_path(params));
-}

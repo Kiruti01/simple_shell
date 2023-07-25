@@ -3,22 +3,58 @@
 #include <stdlib.h>
 /**
  * free_params - Frees mem allocated for the param_t struct
- * @params: pnter to the param_t struct to free
+ * @data: pnter to the shell_data struct to free
  */
 
-void free_params(param_t *params)
+void free_params(shell_data *data)
 {
-	unsigned int i;
+	char **input = &data->input, ***args = &data->args;
+	int i;
 
-	if (params->buffer)
-		free(params->buffer);
-	if (params->nextCommand)
-		free(params->nextCommand);
-	free_list(params->env_head);
-	free_list(params->alias_head);
+	if (*input)
+		free(*input);
+	*input = NULL;
+	if (*args)
+	{
+		for (i = 0; (*args)[i] != NULL; ++i)
+		{
+			free((*args)[i]);
+			(*args)[i] = NULL;
+		}
+		free(*args);
+		*args = NULL;
+	}
+}
 
-	for (i = 0; params->args[i]; i++)
-		free(params->args[i]);
-	free(params->args);
-	free(params);
+/**
+ * free_env - free environ variable
+ * @data: shell_data
+ */
+
+void free_env(shell_data *data)
+{
+	char ***env = &data->_environ;
+	int i;
+
+	if (*env)
+	{
+		for (i = 0; (*env)[i] != NULL; ++i)
+		{
+			free((*env)[i]);
+			(*env)[i] = NULL;
+		}
+		free(*env);
+		*env = NULL;
+	}
+}
+
+/**
+ * free_shell_data - free all shell data
+ * @data: shell_data
+ */
+
+void free_shell_data(shell_data *data)
+{
+	free_in_buffers(data);
+	free_env(data);
 }

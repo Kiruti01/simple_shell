@@ -5,20 +5,22 @@
 #include "shell.h"
 #include "lists.h"
 #include "main.h"
+
 /**
- * run_command - looks for path dirs for command and execs
- * @params: parameters
+ * run_command - Executes the given command by searching for its path and running it
+ * @params: The parameters containing the command and arguments
  */
+
 void run_command(param_t *params)
 {
 	char *exeFile = NULL;
 	pid_t pid;
 	void (*buildin)(param_t *);
 
-	buildin = get_builtin(params);
-	if (buildin)
+	builtin = get_builtin(params);
+	if (builtin)
 	{
-		buildin(params);
+		builtin(params);
 		return;
 	}
 	exeFile = get_file(params);
@@ -35,6 +37,8 @@ void run_command(param_t *params)
 	else if (pid == 0)
 	{
 		execve(exeFile, params->args, NULL);
+		perror("Execution error");
+		exit(EXIT_FAILURE);
 	}
 	else
 	{

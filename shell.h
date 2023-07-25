@@ -46,6 +46,16 @@ int process_string(param_t *);
 
 char *_strdup(char *);
 
+char *_strdup(const char *str);
+
+char *_strcpy(char *dest, const char *src);
+
+int _strcmp(const char *s1, const char *s2);
+
+int _strncmp(const char *s1, const char *s2, size_t n);
+
+int _atoi(const char *s);
+
 char *_strcpy(char *dest, const char *src);
 
 int _getline(param_t *);

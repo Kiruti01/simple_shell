@@ -3,25 +3,24 @@
 #include <limits.h>
 #include "shell.h"
 #include "main.h"
+
 /**
- * _strcpy - copies a str to anther mem addrss
- * @src: pointer source str
- * @dest: pointer destn addrss
+ * _strcpy - Copies a string from source to destination
+ * @dest: Destination buffer
+ * @src: Source string
  *
- * Return: pointer to destn
+ * Return: Pointer to the destination buffer
  */
+
 char *_strcpy(char *dest, const char *src)
 {
-	int i;
+	char *dest_ptr = dest;
 
-	i = 0;
-	while (src[i] != '\0')
+	while (src != '\0')
 	{
-		dest[i] = src[i];
-		i++;
+		*des_ptr++ = src++;
 	}
-	if (src[i] == '\n')
-		dest[i] = '\n';
+	*dest_ptr = '\0';
 	return (dest);
 }
 
@@ -33,19 +32,14 @@ char *_strcpy(char *dest, const char *src)
  * Return: int >, =, < 0 if s1 is, respectively
  * <, =, > s2
  */
-int _strcmp(char *s1, char *s2)
+int _strcmp(const char *s1, const char *s2)
 {
-	int res = 0;
-
-	do {
-		res = *s1 - *s2;
-		if (*s1 == 0 || *s2 == 0)
-			break;
+	while (*s1 && *s1 == *s2)
+	{
 		s1++;
 		s2++;
-	} while (res == 0);
-
-	return (res);
+	}
+	return (*s1 - *s2);
 }
 
 /**
@@ -59,17 +53,17 @@ int _strcmp(char *s1, char *s2)
  */
 int _strcmp_n(char *s1, char *s2, int n)
 {
-	int i = 0, res = *s1 - *s2;
-
-	while (i <= n)
+	while (n--)
 	{
-		res = *(s1++) - *(s2++);
-		if (res != 0)
+		if (*s1 != *s2)
+			return (*s1 -*s2);
+		if (*s1 == '\0')
 			break;
-		i++;
+		s1++
+		s2++;
 	}
 
-	return (res);
+	return (0);
 }
 
 
@@ -78,23 +72,28 @@ int _strcmp_n(char *s1, char *s2, int n)
  * @s: str to eval
  * Return: n the value of the first number in the str
  */
-int _atoi(char *s)
+int _atoi(const char *s)
 {
-	int n, tmp, len, mul = 1;
-
-	n = 0;
-	tmp = 0;
-
-	len = _strlen(s);
-	len--;
-	while (len >= 0)
+	int n= 0;
+	inst sihn = 1;
+	
+	while (*s == ' ')
+		s++;
+	if (*s == '-' || *s == '+')
 	{
-		tmp = n;
-		n = n + (s[len] - '0') * mul;
-		if (n < tmp || n > INT_MAX)
-			return (-1);
-		len--;
-		mul *= 10;
+		if (*s == '-')
+			sign = -1;
+		s++;
 	}
-	return (n);
+
+	while (*s >= '0' && *s <= '9')
+	{
+		if (n > INT_MAX / 10 || (n == INT_MAX / 10 && (*s - '0') > INT_MAX % 10))
+			return -1;
+		n = n * 10 + (*s - '0');
+		s++;
+	}
+
+	return (n * sign);
 }
+

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Simple Shell Project
+=======
+# Simple Shell
+>>>>>>> c03d7753879c9ca990930a5c064fd71674c04828
 ## Authors:
   * Michael Kiruti Mwaura
   * Wilson Lusitu Ntonongo

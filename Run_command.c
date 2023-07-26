@@ -20,3 +20,26 @@ void run_command(param_t *params)
 	{
 		buildin(params);
 		return;
+	}
+	exeFile = get_file(params);
+	if (!exeFile)
+	{
+		return;
+	}
+	pid = fork();
+	if (pid < 0)
+	{
+		free_params(params);
+		exit(98);
+	}
+	else if (pid == 0)
+	{
+		execve(exeFile, params->args, NULL);
+	}
+	else
+	{
+		wait(&params->status);
+		params->status = WEXITSTATUS(params->status);
+		free(exeFile);
+	}
+}

@@ -19,3 +19,12 @@ void write_error(param_t *params, char *msg)
 	writeHead = bufPtr + _strlen(bufPtr);
 	_strcpy(writeHead, ": ");
 	writeHead = bufPtr + _strlen(bufPtr);
+	_strcpy(writeHead, params->args[0]);
+	writeHead = bufPtr + _strlen(bufPtr);
+	_strcpy(writeHead, ": ");
+	writeHead = bufPtr + _strlen(bufPtr);
+	_strcpy(writeHead, msg);
+	writeHead = bufPtr + _strlen(bufPtr);
+
+	write(STDERR_FILENO, errBuffer, _strlen(bufPtr));
+}

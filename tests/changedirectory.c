@@ -23,32 +23,25 @@ static void cd_setenv(param_t *params, char *cwd)
 	tmpArgs[1] = _strdup("OLDPWD");
 	tmpArgs[2] = _strdup(_getenv("PWD", params));
 
-	if (!tmpArgs[0] || !tmpArgs[1] || !tmpArgs[2])
-	{
-		write(STDERR_FILENO, "cd malloc error\n", 16);
-		free_params(params);
-		exit(-1);
-	}
-
-	_setenv(params);
-	for (int i = 0; i < 3; i++)
-		free(tmpArgs[i]);
-
 	tmpArgs[0] = _strdup("setenv");
 	tmpArgs[1] = _strdup("PWD");
 	tmpArgs[2] = _strdup(cwd);
 
-	if (!tmpArgs[0] || !tmpArgs[1] || !tmpArgs[2])
+	for (int i = 0; i < 6; i++)
 	{
-		write(STDERR_FILENO, "cd malloc error\n", 16);
-		free_params(params);
-		exit(-1);
+		if (!tmpArgs[i])
+		{
+			write(STDERR_FILENO, "cd malloc error\n", 16);
+			free_params(params);
+			exit(-1);
+		}
 	}
 
 	_setenv(params);
 	for (int i = 0; i < 3; i++)
+	{
 		free(tmpArgs[i]);
-
+	}
 	free(tmpArgs);
 }
 
@@ -71,15 +64,15 @@ static void cd_change_directory(param_t *params, char *target)
 		return;
 	}
 
-	cd_setenv(params, getcwd(cwd, sizeof(cwd)));
+	getcwd(cwd, sizeof(cwd));
+	cd_setenv(params, cwd);
+
 	free(target);
 }
 
 /**
- * _cd - change crrnt wrking dir
+ * _cd - change current working directory
  * @params: shell parameters
- *
- * Return: void
  */
 void _cd(param_t *params)
 {
@@ -113,8 +106,8 @@ void _cd(param_t *params)
 		{
 			params->status = 2;
 			_printf("%s: %d: cd: Illegal option %c%c\n",
-				params->argv[0], params->lineCount,
-				'-', params->args[1][1]);
+					params->argv[0], params->lineCount,
+					'-', params->args[1][1]);
 			return;
 		}
 	}
@@ -122,11 +115,19 @@ void _cd(param_t *params)
 	{
 		target = _strdup(params->args[1]);
 		if (!target)
-		{
-			write(STDERR_FILENO, "cd target malloc error\n", 18);
-			free_params(params);
-			exit(-1);
-		}
+			handle_memory_error(params);
 	}
-	cd_change_durectory(params, target);
+	change_directory(params, target);
+}
+
+
+/**
+ * handle_memory_error - Helper function to handle memory allocation errors
+ * @params: shell parameters
+ */
+static void handle_memory_error(param_t *params)
+{
+	write(STDERR_FILENO, "cd target malloc error\n", 23);
+	free_params(params);
+	exit(-1);
 }

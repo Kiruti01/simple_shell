@@ -11,10 +11,10 @@ int print_arg(char *arg);
 
 void get_type(char *format, int *index);
 /**
- * _printf - output text to standard output specified by format
- * @format: directives for outputing text
+ * _printf - prints text to std output specified by format
+ * @format: directives fo outputing text
  *
- * Return: number of characters output
+ * Return: number of chars output
  */
 int _printf(const char *format, ...)
 {
@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 
 	if (!format)
 		return (-1);
-	/* special case only one % sign */
+
 	if (_strlen((char *)format) == 1 && format[0] == '%')
 	{
 		return (-1);
@@ -73,7 +73,7 @@ int _printf(const char *format, ...)
 				buffer[index] = '%';
 				index++;
 				continue;
-			default:/* unknown specifier */
+			default:
 				arg = malloc(3);
 				arg[0] = '%';
 				arg[1] = format[high];
@@ -106,11 +106,11 @@ int _printf(const char *format, ...)
 	return (sum);
 }
 /**
- * flush_buffer - print out the buffer upto index and reset
+ * flush_buffer - output out buffer upto index and reset
  * @buffer: buffer string
  * @index: index
  *
- * Return: total number of characters printed
+ * Return: total num of characters printed
  */
 int flush_buffer(char *buffer, int *index)
 {
@@ -127,8 +127,8 @@ int flush_buffer(char *buffer, int *index)
 	return (num);
 }
 /**
- * print_arg - print argument string
- * @arg: string
+ * print_arg - prnt arg str
+ * @arg: str
  *
  * Return: number of bytes printed
  */
@@ -137,9 +137,7 @@ int print_arg(char *arg)
 	return (write(1, arg, _strlen(arg)));
 }
 /**
- * get_type - get type from the specifier from format string
- * This function skip spaces, find a specifier, and move index
- * to the specifier
+ * get_type - get type from speccified form format string
  * @format: format string
  * @index: current index of format string
  */

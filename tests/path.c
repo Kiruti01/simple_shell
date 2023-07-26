@@ -5,11 +5,10 @@
 #include "shell.h"
 #include "lists.h"
 /**
- * get_file - get correct path to a command file
- * @params: parameters
+ * get_file - get crrt path to a cmd fle
+ * @params: params
  *
- * Return: string of valid path to command file, NULL if not found
- * The string needs to be freed
+ * Return: str of valid path to cmd file, NULL if not found free
  */
 char *get_file(param_t *params)
 {

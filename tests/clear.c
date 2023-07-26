@@ -2,7 +2,7 @@
 #include "shell.h"
 
 /**
- * _clear - clears the terminal screen
+ * _clear - clrs terminal screen
  * @params: parameters
  *
  * Return: void

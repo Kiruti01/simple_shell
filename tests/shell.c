@@ -3,14 +3,15 @@
 #include <unistd.h>
 #include <signal.h>
 #include "shell.h"
-#include "main.h" /* for _printf */
+#include "main.h"
 #define BUFFER_SIZE 4096
 param_t *init_param(char **argv, char **env);
+
 /**
- * main - entry point for simple shell
- * @argc: argument count
- * @argv: Null terminated argument list
- * @env: Null terminated environment variables list
+ * main - entry point simple shell
+ * @argc: arg count
+ * @argv: Null terminated arg list
+ * @env: Null terminated environ var list
  *
  * Return: 0 on success
  */
@@ -40,7 +41,7 @@ int main(int __attribute__((unused)) argc, char **argv, char **env)
 		params->tokCount = 0;
 		if (isatty(STDIN_FILENO))
 			_printf("BenShell($): ");
-		/*cond = _getline(params);*/
+
 		cond = getline(&params->buffer, &size, stdin);
 		params->lineCount++;
 		if (cond == -1 && _strlen(params->buffer) == 0)
@@ -70,9 +71,9 @@ int main(int __attribute__((unused)) argc, char **argv, char **env)
 	}
 }
 /**
- * init_param - initialize params
- * @argv: command line argument
- * @env: environment variables
+ * init_param - start params
+ * @argv: cmd line argument
+ * @env: environ vars
  * Return: param on success
  */
 param_t *init_param(char **argv, char **env)

@@ -3,7 +3,7 @@
 #include "shell.h"
 #include "main.h"
 /**
- * validNum - check if string is a valid number
+ * validNum - check str is a valid number
  * @s: string
  *
  * Return: 0 if false, 1 otherwise
@@ -19,8 +19,8 @@ int validNum(char *s)
 	return (1);
 }
 /**
- * _myExit - buildin exit function
- * @params: parameters
+ * _myExit - buildin exit funct
+ * @params: params
  */
 void _myExit(param_t *params)
 {

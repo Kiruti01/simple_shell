@@ -6,12 +6,8 @@
 #include "main.h"
 
 /**
- * get_builtin - Get built-in function
+ * get_builtin - Get built-in fnctn
  * @params: Pointer to the param_t struct containing command parameters
- *
- * Description: Searches for a built-in function based on the first argument
- * in the param_t struct. Returns a function pointer to the corresponding
- * built-in function if found, or NULL if not found.
  *
  * Return: Function pointer to the built-in function. NULL if not found.
  */

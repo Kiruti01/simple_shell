@@ -1,4 +1,4 @@
-# Simple Shell
+# Simple Shell Project
 ## Authors:
   * Michael Kiruti Mwaura
   * Wilson Lusitu Ntonongo

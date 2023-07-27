@@ -42,7 +42,7 @@ typedef struct op
 	void (*func)(param_t *);
 } op_t;
 
-int process_string(param_t *);
+int procss_str(param_t *);
 
 char *_strdup(char *);
 

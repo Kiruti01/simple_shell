@@ -2,30 +2,30 @@
 
 /**
  * str_concat - joins two strings
- * @s1: first str args
- * @s2: second str args
+ * @z1: first str args
+ * @z2: second str args
  * Return: Null on failure, else ptr to malloc
  */
-char *str_concat(char *s1, char *s2)
+char *str_concat(char *z1, char *z2)
 {
 	char *ptr;
 	int i = 0;
 	int j = 0;
 	int x = 0;
 
-	if (s1 == NULL)
+	if (z1 == NULL)
 	{
-		s1 = "";
+		z1 = "";
 	}
-	if (s2 == NULL)
+	if (z2 == NULL)
 	{
-		s2 = "";
+		z2 = "";
 	}
-	while (s1[i] != '\0')
+	while (z1[i] != '\0')
 	{
 		i++;
 	}
-	while (s2[j] != '\0')
+	while (z2[j] != '\0')
 	{
 		j++;
 	}
@@ -34,14 +34,14 @@ char *str_concat(char *s1, char *s2)
 	{
 		return (NULL);
 	}
-	for (i = 0; s1[i] != '\0'; i++)
+	for (i = 0; z1[i] != '\0'; i++)
 	{
-		ptr[i] = s1[i];
+		ptr[i] = z1[i];
 		x++;
 	}
-	for (j = 0; s2[j] != '\0'; j++)
+	for (j = 0; z2[j] != '\0'; j++)
 	{
-		ptr[x] = s2[j];
+		ptr[x] = z2[j];
 		x++;
 	}
 	ptr[x] = '\0';
@@ -49,30 +49,30 @@ char *str_concat(char *s1, char *s2)
 }
 /**
  * string_nconcat - joins two strings
- * @s1: first str arg
- * @s2: second str arg
- * @n: amount of bytes for s2
+ * @z1: first str arg
+ * @z2: second str arg
+ * @n: amount of bytes for z2
  * Return: Null on failure, else ptr to malloc
  */
-char *string_nconcat(char *s1, char *s2, unsigned int n)
+char *string_nconcat(char *z1, char *z2, unsigned int n)
 {
 	char *ptr;
 	unsigned int i = 0;
 	unsigned int j = 0;
 
-	if (s1 == NULL)
+	if (z1 == NULL)
 	{
-		s1 = "";
+		z1 = "";
 	}
-	if (s2 == NULL)
+	if (z2 == NULL)
 	{
-		s2 = "";
+		z2 = "";
 	}
-	while (s1[i] != '\0')
+	while (z1[i] != '\0')
 	{
 		i++;
 	}
-	while (s2[j] != '\0')
+	while (z2[j] != '\0')
 	{
 		j++;
 	}
@@ -85,13 +85,13 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	{
 		return (NULL);
 	}
-	for (i = 0; s1[i] != '\0'; i++)
+	for (i = 0; z1[i] != '\0'; i++)
 	{
-		ptr[i] = s1[i];
+		ptr[i] = z1[i];
 	}
 	for (j = 0; j < n; j++)
 	{
-		ptr[i + j] = s2[j];
+		ptr[i + j] = z2[j];
 	}
 	ptr[i + j] = '\0';
 	return (ptr);
@@ -118,8 +118,7 @@ int _strlen(char *s)
 /**
  * _strdup - copy a str to a new allocated block of mem
  * @str: str
- *
- * Return: pointer to duplicated str, NULL if insufficient mem
+ * Return: ptr to duplicated str, NULL if insufficient mem
  */
 char *_strdup(char *str)
 {
@@ -133,7 +132,7 @@ char *_strdup(char *str)
 		len++;
 		str++;
 	}
-	ptr = (char *) malloc(sizeof(char) * (len + 1));
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
 	if (ptr)
 	{
 		while (len >= 0)
@@ -146,8 +145,7 @@ char *_strdup(char *str)
  * _strchr - locates char in a str
  * @s: where to start search
  * @c: values to find
- *
- * Return: pointer to begining of mem area
+ * Return: ptr to begining of mem area
  */
 char *_strchr(char *s, char c)
 {
@@ -164,4 +162,3 @@ char *_strchr(char *s, char c)
 		return (&s[i]);
 	return (0);
 }
-

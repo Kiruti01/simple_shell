@@ -5,10 +5,10 @@
 #include "main.h"
 /**
  * _strcpy - copies a str to anther mem addrss
- * @src: pointer source str
- * @dest: pointer destn addrss
+ * @src: ptr source str
+ * @dest: ptr destn addrss
  *
- * Return: pointer to destn
+ * Return: ptr to destn
  */
 char *_strcpy(char *dest, const char *src)
 {
@@ -37,7 +37,8 @@ int _strcmp(char *s1, char *s2)
 {
 	int res = 0;
 
-	do {
+	do
+	{
 		res = *s1 - *s2;
 		if (*s1 == 0 || *s2 == 0)
 			break;
@@ -49,11 +50,10 @@ int _strcmp(char *s1, char *s2)
 }
 
 /**
- * _strcmp_n - compares n bytes of two strings
+ * _strcmp_n - compares bytes of two strings
  * @s1: str 1
  * @s2: str 2
- * @n: number of bytes to comp
- *
+ * @n: num of bytes to comp
  * Return: int <, =, > 0 if s1 is, respectively
  * <, =, > s2
  */
@@ -71,7 +71,6 @@ int _strcmp_n(char *s1, char *s2, int n)
 
 	return (res);
 }
-
 
 /**
  * _atoi - turn a str into an int

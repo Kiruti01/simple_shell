@@ -54,7 +54,7 @@ int main(int __attribute__((unused)) argc, char **argv, char **env)
 		params->nextCommand = _strtok(params->buffer, ";\n", &state);
 		while (params->nextCommand)
 		{
-			params->tokCount = process_string(params);
+			params->tokCount = procss_str(params);
 			if (params->tokCount == 0)
 				break;
 			run_command(params);

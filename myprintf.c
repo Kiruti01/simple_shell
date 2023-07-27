@@ -106,12 +106,12 @@ int _printf(const char *format, ...)
 }
 
 /**
- * flsh_buffer - output out the buffer upto index and reset
+ * flush_buffer - output out the buffer upto index and reset
  * @buffer: buffer str
  * @index: index
  * Return: total num of characters printed
  */
-int flsh_buffer(char *buffer, int *index)
+int flush_buffer(char *buffer, int *index)
 {
 	int num = 0;
 
@@ -130,7 +130,7 @@ int flsh_buffer(char *buffer, int *index)
  * @arg: str
  * Return: num of bytes printed
  */
-int prnt_arg(char *arg)
+int print_arg(char *arg)
 {
 	return (write(1, arg, _strlen(arg)));
 }

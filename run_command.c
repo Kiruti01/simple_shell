@@ -7,7 +7,7 @@
 #include "main.h"
 /**
  * run_command - looks for path dirs for command and execs
- * @params: parameters
+ * @params: params
  */
 void run_command(param_t *params)
 {

@@ -12,77 +12,50 @@
  *
  * Return: Valid path to cmd file, NULL if not found or not executable
  */
-static char *check_file_access(const char *filename, param_t *params)
+char *get_file(param_t *params)
 {
-	if (access(filename, F_OK | X_OK) == 0)
-		return (_strdup(filename));
-
+	char *path = NULL;
+	char *exePath = NULL, *exeArg = NULL, *tmp = NULL;
+	char *state = NULL;
+	if (access(params->args[0], F_OK | X_OK) == 0)
+	{
+		free(path);
+		return (_strdup(params->args[0]));
+	}
 	if (errno == EACCES)
 	{
 		params->status = 126;
 		write_error(params, "Permission denied\n");
+		return (NULL);
 	}
-	else
-	{
-		params->status = 127;
-		write_error(params, "not found\n");
-	}
-
-	return (NULL);
-}
-
-/**
- * search_path - lookS for the file in the directories listed in PATH
- * @params: Params
- *
- * Return: Valid path to cmd file, NULL if not found
- */
-static char *search_path(param_t *params)
-{
-	char *path = _getenv("PATH", params);
-
+	path = _getenv("PATH", params);
 	if (!path)
 	{
 		write_error(params, "not found\n");
 		return (NULL);
 	}
-
-	char *exePath = _strtok(path, ":", NULL);
-	char *exeArg = NULL;
-
+	exePath = _strtok(path, ":", &state);
 	while (exePath)
 	{
+		tmp = exeArg;
 		exeArg = str_concat(exePath, "/");
+		free(tmp);
+		tmp = exeArg;
 		exeArg = str_concat(exeArg, params->args[0]);
-
-		char *file = check_file_access(exeArg, params);
-
-		if (file)
+		free(tmp);
+		if (access(exeArg, F_OK) == 0)
 		{
 			free(path);
-			return (file);
+			free(exePath);
+			return (exeArg);
 		}
-
 		free(exePath);
-		free(exeArg);
-
-		exePath = _strtok(NULL, ":", NULL);
+		exePath = _strtok(path, ":", &state);
 	}
-
+	params->status = 127;
+	write_error(params, "not found\n");
 	free(path);
+	free(exePath);
+	free(exeArg);
 	return (NULL);
-}
-
-/**
- * get_file - Get crrent path to a command file
- * @params: Parameters
- *
- * Return: Valid path to cmd file, NULL if not found
- */
-char *get_file(param_t *params)
-{
-	if (access(params->args[0], F_OK | X_OK) == 0)
-		return (_strdup(params->args[0]));
-
-	return (search_path(params));
 }

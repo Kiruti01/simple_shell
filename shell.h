@@ -33,8 +33,8 @@ typedef struct param_s
 
 /**
  * struct op - a builtin function
- * @name: buildin name
- * @func: pointer to builtin function
+ * @name: builtin name
+ * @func: ptr to builtin function
  */
 typedef struct op
 {

@@ -6,19 +6,19 @@
 #include "lists.h"
 #include "main.h"
 /**
- * run_command - looks for path dirs for command and execs
+ * run_command - looks for path dirs for cmd and executes
  * @params: params
  */
 void run_command(param_t *params)
 {
 	char *exeFile = NULL;
 	pid_t pid;
-	void (*buildin)(param_t *);
+	void (*builtin)(param_t *);
 
-	buildin = get_builtin(params);
-	if (buildin)
+	builtin = get_builtin(params);
+	if (builtin)
 	{
-		buildin(params);
+		builtin(params);
 		return;
 	}
 	exeFile = get_file(params);

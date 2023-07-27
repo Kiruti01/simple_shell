@@ -3,7 +3,7 @@
  * move_left -removs leading 0's
  * @a: buffer
  * @size: size of arry
- * @num: num of digs in the bin num
+ * @num: num digts in bin num
  * Return: buffer
  */
 char *move_left(char *a, int size, int num)
@@ -18,9 +18,9 @@ char *move_left(char *a, int size, int num)
 }
 
 /**
- * get_binary - convts an unsigned int to bin
- * @n: integer
- * Return: pointer to bin
+ * get_binary - convts unsigned int to bin
+ * @n: int
+ * Return: ptr to bin
  */
 
 char *get_binary(unsigned int n)
@@ -62,9 +62,8 @@ char *get_binary(unsigned int n)
 	return (ptr);
 }
 
-
 /**
- * get_char - retrns a copied char
+ * get_char - rtrns a copied char
  * @c: char to b copied
  * Return: ptr of copied char
  */
@@ -83,9 +82,9 @@ char *get_char(char c)
 }
 
 /**
- * get_string - returns new duplcatd str
+ * get_string - returns new dplcatd str
  * @s: str to be copied
- * Return: Null if str is null, else pointer of copied str
+ * Return: Null if str is null, else ptr of copied str
  */
 char *get_string(char *s)
 {
@@ -124,7 +123,7 @@ char *get_string(char *s)
 }
 
 /**
- * get_number - pt int into a memory block as str
+ * get_number - put int into a mem block as str
  * @n: integer
  *
  * Return: pointer to int str, NULL on error
@@ -133,7 +132,7 @@ char *get_number(int n)
 {
 	int i, len = 0, tmp;
 	char *buf = NULL;
-	/* number bytes to allocate */
+	/* find number bytes to allocate */
 	tmp = n;
 	while (tmp >= 10 || tmp <= -10)
 	{

@@ -6,6 +6,7 @@
  * @params: params struct containing info about the command and program
  * @msg: err_msg to print
  */
+
 void write_error(param_t *params, char *msg)
 {
 	char errBuffer[1024] = {0};

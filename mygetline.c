@@ -7,10 +7,9 @@
 
 /**
  * rlLine - realloc line buffer
- * @line: tob buffered p
- * @oldSize: somtng borrowed
- * @newSize: somtng blue
- *
+ * @line: be buffered p
+ * @oldSize: smtng borrowed
+ * @newSize: smtng blue
  * Return: new allocated buffer
  */
 char *rlLine(char **line, unsigned int oldSize, unsigned int newSize)
@@ -29,30 +28,30 @@ char *rlLine(char **line, unsigned int oldSize, unsigned int newSize)
 	return (newLine);
 }
 /**
- * _getline - fetches line of chars from stdin
+ * _getline - gets line of chars from stdin
  * @params: params
- *
- * Return: number of char read
+ * Return: number of chars read
  */
 int _getline(param_t *params)
 {
 	char *line = NULL;
 	static unsigned int bufSize = BUFFER_SIZE;
-	char *writeHead = line;
+	char *writeH = line;
 	unsigned int len;
 
 	line = malloc(BUFFER_SIZE);
-	do {
-		len = read(0, writeHead, BUFFER_SIZE);
+	do
+	{
+		len = read(0, writeH, BUFFER_SIZE);
 		if (len == 0)
 			break;
-		writeHead += len;
-		if (writeHead >= (line + BUFFER_SIZE - 1 - READ_SIZE))
+		writeH += len;
+		if (writeH >= (line + BUFFER_SIZE - 1 - READ_SIZE))
 		{
 			line = rlLine(&line, bufSize, bufSize * 2);
 			bufSize *= 2;
 		}
-	} while (*(writeHead - 1) != '\n');
+	} while (*(writeH - 1) != '\n');
 
 	free(params->buffer);
 	params->buffer = line;

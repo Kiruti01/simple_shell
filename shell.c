@@ -32,7 +32,7 @@ int main(int __attribute__((unused)) argc, char **argv, char **env)
 		if (cond == -1)
 		{
 			status = params->status;
-			_printf("BenShell($) \n");
+			_printf("Shell($) \n");
 			free_params(params);
 			return (status);
 		}
@@ -40,7 +40,7 @@ int main(int __attribute__((unused)) argc, char **argv, char **env)
 			(params->buffer)[i] = 0;
 		params->tokCount = 0;
 		if (isatty(STDIN_FILENO))
-			_printf("BenShell($): ");
+			_printf("Shell($): ");
 
 		cond = getline(&params->buffer, &size, stdin);
 		params->lineCount++;

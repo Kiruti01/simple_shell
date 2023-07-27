@@ -4,13 +4,13 @@
 #include <unistd.h>
 
 /**
- * struct list_s - singly linked list node
- * @str: string data
- * @val: value string data
- * @len: length of the string data
- * @valLen: length of the value string data
- * @next: pointer to the next node in the list
-*/
+ * struct list_s - singly lnked list node
+ * @str: str data
+ * @val: val str data
+ * @len: len of str data
+ * @valLen: len of val str data
+ * @next: ptr to nxt node in the list
+ */
 
 typedef struct list_s
 {
@@ -32,6 +32,5 @@ list_t *add_node(list_t **head, char *str, char *val);
 void free_list(list_t *head);
 
 list_t *get_node(list_t *head, char *str);
-
 
 #endif

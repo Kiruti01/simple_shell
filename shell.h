@@ -33,8 +33,8 @@ typedef struct param_s
 
 /**
  * struct op - a builtin function
- * @name: buildin name
- * @func: pointer to builtin function
+ * @name: builtin name
+ * @func: ptr to builtin function
  */
 typedef struct op
 {
@@ -42,7 +42,7 @@ typedef struct op
 	void (*func)(param_t *);
 } op_t;
 
-int process_string(param_t *);
+int procss_str(param_t *);
 
 char *_strdup(char *);
 

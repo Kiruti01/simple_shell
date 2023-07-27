@@ -4,7 +4,7 @@
 #include "lists.h"
 
 /**
- * _setenv - searches env list to find env var name 
+ * _setenv - searches env list to find env var name
  * and sets the value str.
  * @params: parameters
 */

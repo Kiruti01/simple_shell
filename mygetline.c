@@ -40,8 +40,7 @@ int _getline(param_t *params)
 	unsigned int len;
 
 	line = malloc(BUFFER_SIZE);
-	do
-	{
+	do {
 		len = read(0, writeH, BUFFER_SIZE);
 		if (len == 0)
 			break;

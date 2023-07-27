@@ -6,8 +6,7 @@
 #include "lists.h"
 
 /**
- * check_file_access - Check file exists and is executable
- * @filename: Name of the file to check
+ * get_file - Check file exists and is executable
  * @params: Params
  *
  * Return: Valid path to cmd file, NULL if not found or not executable
@@ -17,6 +16,7 @@ char *get_file(param_t *params)
 	char *path = NULL;
 	char *exePath = NULL, *exeArg = NULL, *tmp = NULL;
 	char *state = NULL;
+
 	if (access(params->args[0], F_OK | X_OK) == 0)
 	{
 		free(path);

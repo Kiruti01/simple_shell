@@ -72,5 +72,4 @@ int _atoi(char *s);
 int _strcmp(char *, char *);
 
 int _strcmp_n(char *, char *, int n);
-
 #endif

@@ -3,7 +3,7 @@
 
 /**
  * rev_string - reverse order of chars in str
- * @S: ptr to null terminated str
+ * @s: ptr to null terminated str
  */
 
 void rev_string(char *s)

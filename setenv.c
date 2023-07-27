@@ -41,7 +41,7 @@ void _setenv(param_t *params)
 	params->status = 0;
 }
 /**
- * _unsetenv - searches env list to find env var name 
+ * _unsetenv - searches env list to find env var name
  * and removes it.
  * @params: parameters
 */

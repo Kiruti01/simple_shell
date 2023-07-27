@@ -44,7 +44,7 @@ typedef struct op
 
 int procss_str(param_t *);
 
-char *_strdup(char *);
+char *_strdup(const char *);
 
 char *_strcpy(char *dest, const char *src);
 

@@ -43,7 +43,7 @@ void print_list_alias(list_t *head)
 	if (head)
 	{
 		print_list_alias(head->next);
-		if (head->str != NULL)
+		if (head->str!= NULL)
 			_printf("%s=\'%s\'\n", head->str, head->val);
 	}
 }

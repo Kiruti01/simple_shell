@@ -3,6 +3,20 @@
 #include "main.h"
 
 /**
+ * updateSavePtrAndModify - Update savePtr and modify input string
+ * @modifier: pointer to the current character in the input string
+ * @savePtr: pointer to the savePtr variable
+ */
+void updateSavePtrAndModify(char *modifier, char **savePtr)
+{
+	if (*modifier == '\0')
+		*savePtr = modifier;
+	else
+		*savePtr = modifier + 1;
+	*modifier = '\0';
+}
+
+/**
  * isDelim - chk if char is delim
  * @c: character
  * @del: delimeters
@@ -68,10 +82,6 @@ char *_strtok(char *str, char *del, char **savePtr)
 			break;
 		modifier++;
 	}
-	if (*modifier == '\0')
-		*savePtr = modifier;
-	else
-		*savePtr = modifier + 1;
-	*modifier = '\0';
+	updateSavePtrAndModify(modifier, savePtr);
 	return (_strdup(ptr));
 }
